@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "13569329519",
+    "project_id": "smart-bear-f7c5d",
+    "storage_bucket": "smart-bear-f7c5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:13569329519:android:36fe8e1d6d644e9726409a",
+        "android_client_info": {
+          "package_name": "com.unco.smartbeartutor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "13569329519-n847ikr2s2p2kt4les4mqlhajtsragbq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhCm0-6R_EIv7W6CCjXCQ0d0ZxTcvvYek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "13569329519-n847ikr2s2p2kt4les4mqlhajtsragbq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "13569329519-ioj5mvf86m90nclgp4td0bov3s3emd3b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unco.smartbeartutor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
