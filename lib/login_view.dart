@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/register_view.dart';
+import 'package:smart_bear_tutor/views/chat_view.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -115,6 +116,8 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Future<void> _signInWithEmailAndPassword() async {
+    // Log out the user just in case something weird happened.
+    await _auth.signOut();
     final User? user = (await _auth.signInWithEmailAndPassword(
             email: _emailController.text, password: _passwordController.text))
         .user;
@@ -128,6 +131,10 @@ class _LoginViewState extends State<LoginView> {
       // Student goes to student
       // Admin goes to admin
       // Ect
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ChatView())
+      );
     } else {
       setState(() {
         _success = false;
