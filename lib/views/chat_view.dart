@@ -1,9 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/firebase_api.dart';
-
-final _auth = FirebaseAuth.instance;
+import 'package:smart_bear_tutor/api/user_auth.dart';
+import 'package:smart_bear_tutor/routes/routes.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({Key? key}) : super(key: key);
@@ -17,7 +16,25 @@ class _ChatViewState extends State<ChatView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: const Text('Chat View', style: TextStyle(color: Colors.white))),
+      appBar: AppBar(
+          title: const Text('Chat View', style: TextStyle(color: Colors.white)),
+        actions: <Widget>[
+          Builder(builder: (BuildContext context) {
+            return TextButton(
+              child: const Text(
+                'Log Out',
+                style: TextStyle(color: Colors.white)
+              ),
+              onPressed: () async {
+                 final _logOutCheck = await signOutCurrentUser();
+                 if (_logOutCheck) {
+                   moveToLoginViewLogout(context);
+                 }
+              },
+            );
+          })
+        ],
+      ),
       body: TextButton(
         child: const Text('Click Me'),
         onPressed: () async {

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_bear_tutor/register_view.dart';
-import 'package:smart_bear_tutor/views/chat_view.dart';
+import 'package:smart_bear_tutor/routes/routes.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -92,10 +91,7 @@ class _LoginViewState extends State<LoginView> {
               const SizedBox(height: 50),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterView()));
+                  moveToRegisterView(context);
                 },
                 child: RichText(
                     text: const TextSpan(children: [
@@ -131,10 +127,7 @@ class _LoginViewState extends State<LoginView> {
       // Student goes to student
       // Admin goes to admin
       // Ect
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ChatView())
-      );
+      moveToChatView(context);
     } else {
       setState(() {
         _success = false;

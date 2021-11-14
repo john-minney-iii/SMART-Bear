@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:smart_bear_tutor/login_view.dart';
-import 'package:smart_bear_tutor/push_notification_option.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:smart_bear_tutor/routes/routes.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -96,10 +95,7 @@ class _RegisterViewState extends State<RegisterView> {
           const SizedBox(height: 25),
           TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginView()),
-                );
+                moveToLoginViewReplacement(context);
               },
               child: RichText(
                   text: const TextSpan(children: [
@@ -128,7 +124,7 @@ class _RegisterViewState extends State<RegisterView> {
         _userEmail = user.email!;
       });
       _createUserDocument(user, _emailController.text, _isAdmin);
-      _moveToPushNotificationView();
+      moveToPushNotificationView(context);
     } else {
       setState(() {
         _success = false;
@@ -142,13 +138,6 @@ class _RegisterViewState extends State<RegisterView> {
         .collection('User')
         .doc(user.uid)
         .set({'email': email, 'admin': isAdmin});
-  }
-
-  void _moveToPushNotificationView() {
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const PushNotificationOptionsView()));
   }
 
   @override
