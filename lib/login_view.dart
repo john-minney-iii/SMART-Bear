@@ -127,7 +127,7 @@ class _LoginViewState extends State<LoginView> {
       // Student goes to student
       // Admin goes to admin
       // Ect
-      moveToChatView(context);
+      moveToUserAccountsView(context);
     } else {
       setState(() {
         _success = false;

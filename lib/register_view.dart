@@ -123,7 +123,7 @@ class _RegisterViewState extends State<RegisterView> {
         _success = true;
         _userEmail = user.email!;
       });
-      _createUserDocument(user, _emailController.text, _isAdmin);
+      _createUserDocument(user, _emailController.text, _isAdmin, user.uid);
       moveToPushNotificationView(context);
     } else {
       setState(() {
@@ -133,11 +133,11 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   Future<void> _createUserDocument(
-      User user, String email, bool isAdmin) async {
+      User user, String email, bool isAdmin, String id) async {
     FirebaseFirestore.instance
         .collection('User')
         .doc(user.uid)
-        .set({'email': email, 'admin': isAdmin});
+        .set({'email': email, 'admin': isAdmin, 'id': id});
   }
 
   @override
