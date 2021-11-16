@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/firebase_api.dart';
 import 'package:smart_bear_tutor/models/question.dart';
+import 'package:smart_bear_tutor/api/user_auth.dart';
 
 class QuestionView extends StatefulWidget {
   const QuestionView({Key? key}) : super(key: key);
@@ -114,10 +115,15 @@ class _QuestionViewState extends State<QuestionView> {
         classCode: _classController.text,
         questionSubject: _subjectController.text,
         questionDate: DateTime.now(),
-        studentEmail: 'test email', // TODO: get the users email
+        studentEmail: (currentUserEmail() != null)
+            ? currentUserEmail()!
+            : 'No Email Given',
         // TODO: figure out what the image id is going to be
         questionImageID1: '',
         questionImageID2: '');
     await submitQuestion(_testQuestion);
   }
+
+  Future<void> _showConformationDialog() async {}
+
 }
