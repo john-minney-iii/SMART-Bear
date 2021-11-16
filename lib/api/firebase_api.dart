@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smart_bear_tutor/models/question.dart';
 import 'package:smart_bear_tutor/models/user.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 
@@ -7,6 +8,8 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 final CollectionReference _userCollectionRef = _firestore.collection('User');
+final CollectionReference _questionCollectionRef =
+    _firestore.collection('Question');
 
 /// This will return a list of all users in the Firebase Database
 /// It will convert the incoming json to local objects using
@@ -26,6 +29,19 @@ Future<List<UserAccount>?> getUsers() async {
     return _userList;
   }
   return null;
+}
+
+/// Submit a Question to the Firestore Database
+Future<void> submitQuestion(Question question) async {
+  if (isUserAuth()) {
+    try {
+      await _questionCollectionRef.add(question.getJson());
+      return;
+    } catch (_) {
+      return;
+    }
+  }
+  return;
 }
 
 CollectionReference getUserCollectionRef() => _userCollectionRef;
