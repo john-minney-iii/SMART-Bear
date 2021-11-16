@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/firebase_api.dart';
 import 'package:smart_bear_tutor/models/question.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
+import 'package:smart_bear_tutor/routes/routes.dart';
 
 class QuestionView extends StatefulWidget {
   const QuestionView({Key? key}) : super(key: key);
@@ -122,8 +123,6 @@ class _QuestionViewState extends State<QuestionView> {
         questionImageID1: '',
         questionImageID2: '');
     await submitQuestion(_testQuestion);
+    moveToTempDashboard(context);
   }
-
-  Future<void> _showConformationDialog() async {}
-
 }
