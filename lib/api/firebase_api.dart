@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smart_bear_tutor/models/chatroom.dart';
 import 'package:smart_bear_tutor/models/question.dart';
 import 'package:smart_bear_tutor/models/user.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
@@ -10,6 +11,8 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final CollectionReference _userCollectionRef = _firestore.collection('User');
 final CollectionReference _questionCollectionRef =
     _firestore.collection('Question');
+final CollectionReference _chatRoomCollectionRef =
+    _firestore.collection('ChatRoom');
 
 /// This will return a list of all users in the Firebase Database
 /// It will convert the incoming json to local objects using
@@ -44,4 +47,24 @@ Future<void> submitQuestion(Question question) async {
   return;
 }
 
+Future<List<ChatRoom>?> getChatRooms() async {
+  if (isUserAuth()) {
+    // Check that the user is logged in
+    QuerySnapshot _chatRoomSnapshot = await _chatRoomCollectionRef.get();
+    final _data = _chatRoomSnapshot.docs;
+    var _chatRoomList = List.filled(0, ChatRoom(userIds: []), growable: true);
+    // Convert Users from json to local object
+    for (var room in _data) {
+      _chatRoomList.add(ChatRoom(userIds: List.from(room['Users'])));
+    }
+    return _chatRoomList;
+  }
+  return null;
+}
+
+Future<void> createChatRoom(ChatRoom chatRoom) async {
+  await _chatRoomCollectionRef.add(chatRoom.getJson());
+}
+
 CollectionReference getUserCollectionRef() => _userCollectionRef;
+CollectionReference getChatRoomsCollectionRef() => _chatRoomCollectionRef;

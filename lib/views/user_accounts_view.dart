@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_bear_tutor/models/chatroom.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/api/firebase_api.dart';
@@ -54,8 +55,14 @@ class _UserAccountsViewState extends State<UserAccountsView> {
     return ListTile(
       title: Text(doc['email']),
       onTap: () {
+        _createChatRoom(currentUserUid()!, doc['id']);
         moveToChatView(context);
       },
     );
+  }
+
+  void _createChatRoom(String id, String id2) {
+    ChatRoom _chatRoom = ChatRoom(userIds: [id, id2]);
+    createChatRoom(_chatRoom);
   }
 }
