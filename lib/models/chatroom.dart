@@ -9,7 +9,7 @@ class ChatRoom {
 
   Map<String, dynamic> getJson() {
     return {
-      'Users': {'0': userIds[0], '1': userIds[1]}
+      'Users': [userIds[0], userIds[1]]
     };
   }
 }

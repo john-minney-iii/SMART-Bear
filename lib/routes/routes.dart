@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/login_view.dart';
+import 'package:smart_bear_tutor/models/chatroom.dart';
 import 'package:smart_bear_tutor/push_notification_option.dart';
 import 'package:smart_bear_tutor/register_view.dart';
 import 'package:smart_bear_tutor/views/chat_view.dart';
@@ -36,9 +37,9 @@ void moveToUserAccountsView(context) {
       MaterialPageRoute(builder: (context) => const UserAccountsView()));
 }
 
-void moveToChatView(context) {
-  Navigator.push(
-      context, MaterialPageRoute(builder: (context) => const ChatView()));
+void moveToChatView(context, ChatRoom chatRoom) {
+  Navigator.push(context,
+      MaterialPageRoute(builder: (context) => ChatView(chatRoom: chatRoom)));
 }
 
 void moveToTempDashboard(BuildContext context) => Navigator.push(context,

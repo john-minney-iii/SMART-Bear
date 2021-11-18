@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
+import 'package:smart_bear_tutor/models/chatroom.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
 
 class ChatView extends StatefulWidget {
-  const ChatView({Key? key}) : super(key: key);
+  const ChatView({Key? key, required this.chatRoom}) : super(key: key);
+
+  final ChatRoom chatRoom;
 
   @override
   _ChatViewState createState() => _ChatViewState();

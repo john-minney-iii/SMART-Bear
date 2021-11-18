@@ -62,6 +62,20 @@ Future<List<ChatRoom>?> getChatRooms() async {
   return null;
 }
 
+Future<ChatRoom?> getChatRoomByUsers(String id, String id2) async {
+  if (isUserAuth()) {
+    QuerySnapshot _chatRoomSnapshot = await _chatRoomCollectionRef.get();
+    final _data = _chatRoomSnapshot.docs;
+    for (var room in _data) {
+      List<String> userIds = [room['Users'][0], room['Users'][1]];
+      if (userIds.contains(id) && userIds.contains(id2)) {
+        return ChatRoom(userIds: userIds);
+      }
+    }
+    return null;
+  }
+}
+
 Future<void> createChatRoom(ChatRoom chatRoom) async {
   await _chatRoomCollectionRef.add(chatRoom.getJson());
 }

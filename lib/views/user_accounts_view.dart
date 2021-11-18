@@ -54,15 +54,18 @@ class _UserAccountsViewState extends State<UserAccountsView> {
   Widget _accountListTile(QueryDocumentSnapshot<Object?> doc) {
     return ListTile(
       title: Text(doc['email']),
-      onTap: () {
-        _createChatRoom(currentUserUid()!, doc['id']);
-        moveToChatView(context);
+      onTap: () async {
+        ChatRoom? _chatRoom =
+            await getChatRoomByUsers(currentUserUid()!, doc['id']);
+        _chatRoom ??= await _createChatRoom(currentUserUid()!, doc['id']);
+        moveToChatView(context, _chatRoom);
       },
     );
   }
 
-  void _createChatRoom(String id, String id2) {
+  Future<ChatRoom> _createChatRoom(String id, String id2) async {
     ChatRoom _chatRoom = ChatRoom(userIds: [id, id2]);
     createChatRoom(_chatRoom);
+    return _chatRoom;
   }
 }
