@@ -53,11 +53,11 @@ Future<List<ChatRoom>?> getChatRooms() async {
     QuerySnapshot _chatRoomSnapshot = await _chatRoomCollectionRef.get();
     final _data = _chatRoomSnapshot.docs;
     var _chatRoomList =
-        List.filled(0, ChatRoom(userIds: [], isOpen: false), growable: true);
+        List.filled(0, ChatRoom(id: '', userIds: [], isOpen: false), growable: true);
     // Convert Users from json to local object
     for (var room in _data) {
       _chatRoomList.add(
-          ChatRoom(userIds: List.from(room['Users']), isOpen: room['IsOpen']));
+          ChatRoom(id: room['Id'], userIds: List.from(room['Users']), isOpen: room['IsOpen']));
     }
     return _chatRoomList;
   }
@@ -71,7 +71,7 @@ Future<ChatRoom?> getChatRoomByUsers(String id, String id2) async {
     for (var room in _data) {
       List<String> userIds = [room['Users'][0], room['Users'][1]];
       if (userIds.contains(id) && userIds.contains(id2)) {
-        return ChatRoom(userIds: userIds, isOpen: room['IsOpen']);
+        return ChatRoom(id: room['Id'], userIds: userIds, isOpen: room['IsOpen']);
       }
     }
     return null;
