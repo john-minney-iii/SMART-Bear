@@ -90,13 +90,19 @@ Future<List<Message>?> getMessages(ChatRoom chatRoom) async {
     QuerySnapshot _messageSnapshot = await _messageCollectionRef.get();
     final _data = _messageSnapshot.docs;
     var _messageList = List.filled(
-        0, Message(authorId: '', chatRoomId: '', message: ''),
+        0,
+        Message(
+            authorId: '',
+            chatRoomId: '',
+            message: '',
+            timestamp: DateTime.now()),
         growable: true);
     for (var message in _data) {
       _messageList.add(Message(
           authorId: message['AuthorId'],
           chatRoomId: message['ChatRoomId'],
-          message: message['Message']));
+          message: message['Message'],
+          timestamp: message['SentTimeStamp']));
     }
     return _messageList;
   }
