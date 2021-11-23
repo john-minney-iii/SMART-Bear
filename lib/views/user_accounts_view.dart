@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_bear_tutor/models/chatroom.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/api/firebase_api.dart';
+import 'package:smart_bear_tutor/widgets/account_list_widget.dart';
 
 class UserAccountsView extends StatefulWidget {
   const UserAccountsView({Key? key}) : super(key: key);
@@ -42,30 +42,8 @@ class _UserAccountsViewState extends State<UserAccountsView> {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
             }
-            return ListView(children: _generateUserTiles(snapshot));
+            return ListView(children: generateUserTiles(context, snapshot));
           },
         ));
-  }
-
-  _generateUserTiles(AsyncSnapshot<QuerySnapshot> snapshot) {
-    return snapshot.data!.docs.map((doc) => _accountListTile(doc)).toList();
-  }
-
-  Widget _accountListTile(QueryDocumentSnapshot<Object?> doc) {
-    return ListTile(
-      title: Text(doc['email']),
-      onTap: () async {
-        ChatRoom? _chatRoom =
-            await getChatRoomByUsers(currentUserUid()!, doc['id']);
-        _chatRoom ??= await _createChatRoom(currentUserUid()!, doc['id']);
-        moveToChatView(context, _chatRoom);
-      },
-    );
-  }
-
-  Future<ChatRoom> _createChatRoom(String id, String id2) async {
-    ChatRoom _chatRoom = ChatRoom(userIds: [id, id2], isOpen: true);
-    createChatRoom(_chatRoom);
-    return _chatRoom;
   }
 }
