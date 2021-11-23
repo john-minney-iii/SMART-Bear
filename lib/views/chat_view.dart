@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/firebase_api.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/models/chatroom.dart';
+import 'package:smart_bear_tutor/models/message.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
 
 class ChatView extends StatefulWidget {
@@ -44,20 +45,40 @@ class _ChatViewState extends State<ChatView> {
             })
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: StreamBuilder(
-            stream: getMessageCollectionRef()
-                .where('ChatRoomId', isEqualTo: _chatRoom.id)
-                .snapshots(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return Column(children: generateMessageTiles(snapshot));
-            },
-          ),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: StreamBuilder(
+                stream: getMessageCollectionRef()
+                    .where('ChatRoomId', isEqualTo: _chatRoom.id)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return Column(children: generateMessageTiles(snapshot));
+                },
+              ),
+            ),
+            TextButton(
+              child: const Text('Send Message'),
+              onPressed: () {
+                _sendTestMessage();
+              },
+            )
+          ],
         ));
+  }
+
+  void _sendTestMessage() {
+    final _authId = currentUserUid();
+    final _testMessage = Message(
+        authorId: _authId!,
+        chatRoomId: _chatRoom.id,
+        message: 'This is a Test Message',
+        timestamp: DateTime.now());
+    createMessage(_testMessage);
   }
 
   generateMessageTiles(AsyncSnapshot<QuerySnapshot> snapshot) {

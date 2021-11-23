@@ -124,7 +124,7 @@ class _RegisterViewState extends State<RegisterView> {
         _userEmail = user.email!;
       });
       _createUserDocument(user, _emailController.text, _isAdmin, user.uid);
-      moveToPushNotificationView(context);
+      moveToTempDashboard(context);
     } else {
       setState(() {
         _success = false;
