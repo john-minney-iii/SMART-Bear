@@ -8,7 +8,8 @@ Future<ChatRoom> accountListTileOnTap(String id, String id2) async {
 }
 
 Future<ChatRoom> startNewChatRoom(String id, String id2) async {
-  ChatRoom _chatRoom = ChatRoom(id: id + '_' + id2, userIds: [id, id2], isOpen: true);
+  ChatRoom _chatRoom =
+      ChatRoom(id: id + '_' + id2, userIds: [id, id2], isOpen: true);
   createChatRoom(_chatRoom);
   return _chatRoom;
 }
