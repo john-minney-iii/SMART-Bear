@@ -64,7 +64,7 @@ class _UserAccountsViewState extends State<UserAccountsView> {
   }
 
   Future<ChatRoom> _createChatRoom(String id, String id2) async {
-    ChatRoom _chatRoom = ChatRoom(userIds: [id, id2]);
+    ChatRoom _chatRoom = ChatRoom(userIds: [id, id2], isOpen: true);
     createChatRoom(_chatRoom);
     return _chatRoom;
   }
