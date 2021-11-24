@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
 
 class AdminDashboardView extends StatefulWidget {
@@ -64,7 +65,8 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
   }
 
   void _manageQuestionsOnPressed() {
-    // TODO: manage questions view
+    // TODO: whatever else is needed ig
+    moveToManageQuestionsView(context);
   }
 
   void _manageTutorAvailability() {

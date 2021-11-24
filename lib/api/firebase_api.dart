@@ -28,3 +28,6 @@ Future<void> submitQuestion(Question question) async {
   }
   return;
 }
+
+Stream<QuerySnapshot<Object?>> unAnsweredQuestionsStream() =>
+    _questionCollectionRef.where('Answered', isEqualTo: false).snapshots();
