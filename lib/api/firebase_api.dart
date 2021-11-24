@@ -30,4 +30,4 @@ Future<void> submitQuestion(Question question) async {
 }
 
 Stream<QuerySnapshot<Object?>> unAnsweredQuestionsStream() =>
-    _questionCollectionRef.where('Answered', isEqualTo: false).snapshots();
+    _questionCollectionRef.where('answered', isEqualTo: false).snapshots();

@@ -18,15 +18,15 @@ generateUnAnsweredQuestionTiles(
 Widget _questionListTile(
     BuildContext context, QueryDocumentSnapshot<Object?> doc) {
   final _formattedDate =
-      formatter.format((doc['QuestionDate'] as Timestamp).toDate());
-  final _cardTitle = _formattedDate + ' - ' + doc['ClassCode'];
+      formatter.format((doc['questionDate'] as Timestamp).toDate());
+  final _cardTitle = _formattedDate + ' - ' + doc['classCode'];
   return Card(
       elevation: 0,
       color: Colors.blue,
       child: ListTile(
         title: Text(_cardTitle, style: const TextStyle(color: Colors.white)),
-        subtitle: Text(doc['QuestionSubject'],
-            style: const TextStyle(color: Colors.white)),
+        subtitle:
+            Text(doc['subject'], style: const TextStyle(color: Colors.white)),
         trailing: const Icon(Icons.arrow_right),
         onTap: () {
           moveToQuestionView(context);

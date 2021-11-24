@@ -102,17 +102,13 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
 
   void _submitNewQuestion() async {
     if (_formKey.currentState!.validate()) {
+      final _userId = currentUserUid();
       Question _newQuestion = Question(
-          questionBody: _questionController.text,
+          authorId: _userId!,
           classCode: _classController.text,
-          questionSubject: _subjectController.text,
           questionDate: DateTime.now(),
-          studentEmail: (currentUserEmail() != null)
-              ? currentUserEmail()!
-              : 'No Email Given',
-          // TODO: figure out what the image id is going to be
-          questionImageID1: '',
-          questionImageID2: '');
+          subject: _subjectController.text,
+          body: _questionController.text);
       await submitQuestion(_newQuestion);
       moveToStudentDashboardReplacement(context);
     }
