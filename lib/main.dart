@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:smart_bear_tutor/login_view.dart';
+import 'package:smart_bear_tutor/views/login_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
