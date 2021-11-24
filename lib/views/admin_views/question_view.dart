@@ -106,7 +106,7 @@ class _QuestionViewState extends State<QuestionView> {
 
   void _assignOnPressed() {
     // TODO: assign question to tutor
-    moveToTutorListView(context);
+    moveToTutorListView(context, _question);
   }
 
   void _declineOnPressed() {

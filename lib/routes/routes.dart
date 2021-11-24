@@ -39,5 +39,9 @@ void moveToQuestionView(
             builder: (context) =>
                 QuestionView(question: question, authorEmail: authorEmail)));
 
-void moveToTutorListView(BuildContext context) => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => const TutorListView()));
+void moveToTutorListView(
+        BuildContext context, Question question) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => TutorListView(question: question)));
