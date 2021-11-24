@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/models/question_model.dart';
+import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/widgets/blue_call_to_action.dart';
 import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
 import 'package:smart_bear_tutor/widgets/red_call_to_action.dart';
@@ -105,6 +106,7 @@ class _QuestionViewState extends State<QuestionView> {
 
   void _assignOnPressed() {
     // TODO: assign question to tutor
+    moveToTutorListView(context);
   }
 
   void _declineOnPressed() {
