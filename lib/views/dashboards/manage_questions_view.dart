@@ -26,7 +26,7 @@ class _ManageQuestionsViewState extends State<ManageQuestionsView> {
               return const Center(child: CircularProgressIndicator());
             }
             return ListView(
-                children: generateUnAnsweredQuestionTiles(snapshot));
+                children: generateUnAnsweredQuestionTiles(context, snapshot));
           },
         ));
   }

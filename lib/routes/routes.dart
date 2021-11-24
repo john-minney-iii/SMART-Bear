@@ -4,6 +4,7 @@ import 'package:smart_bear_tutor/views/ask_a_question_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/admin_dashboard_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/manage_questions_view.dart';
 import 'package:smart_bear_tutor/views/login_view.dart';
+import 'package:smart_bear_tutor/views/question_view.dart';
 import 'package:smart_bear_tutor/views/register_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/student_dashboard_view.dart';
 
@@ -27,3 +28,6 @@ void moveToAskAQuestionView(BuildContext context) => Navigator.push(
 
 void moveToManageQuestionsView(BuildContext context) => Navigator.push(context,
     MaterialPageRoute(builder: (context) => const ManageQuestionsView()));
+
+void moveToQuestionView(BuildContext context) => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => const QuestionView()));
