@@ -22,6 +22,11 @@ Future<UserAccount> getUserAccount(String id) async {
       role: _data['role'], email: _data['email'], id: _data['id']);
 }
 
+Future<String> getUserEmailById(String id) async {
+  final _data = await _userCollectionRef.doc(id).get();
+  return _data['email'];
+}
+
 Future<void> submitQuestion(Question question) async {
   if (isUserAuth()) {
     await _questionCollectionRef.add(question.getJson());

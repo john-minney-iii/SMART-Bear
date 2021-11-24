@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:smart_bear_tutor/api/firebase_api.dart';
+import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
 
 /// Used to format DateTime on Card
@@ -28,8 +30,15 @@ Widget _questionListTile(
         subtitle:
             Text(doc['subject'], style: const TextStyle(color: Colors.white)),
         trailing: const Icon(Icons.arrow_right),
-        onTap: () {
-          moveToQuestionView(context);
+        onTap: () async {
+          final _tempQuestion = Question(
+              authorId: doc['authorId'],
+              classCode: doc['classCode'],
+              questionDate: (doc['questionDate'] as Timestamp).toDate(),
+              subject: doc['subject'],
+              body: doc['body']);
+          final _authorEmail = await getUserEmailById(doc['authorId']);
+          moveToQuestionView(context, _tempQuestion, _authorEmail);
         },
       ));
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/views/ask_a_question_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/admin_dashboard_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/manage_questions_view.dart';
@@ -29,5 +30,10 @@ void moveToAskAQuestionView(BuildContext context) => Navigator.push(
 void moveToManageQuestionsView(BuildContext context) => Navigator.push(context,
     MaterialPageRoute(builder: (context) => const ManageQuestionsView()));
 
-void moveToQuestionView(BuildContext context) => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => const QuestionView()));
+void moveToQuestionView(
+        BuildContext context, Question question, String authorEmail) =>
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                QuestionView(question: question, authorEmail: authorEmail)));
