@@ -35,7 +35,8 @@ class _TutorListViewState extends State<TutorListView> {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
             }
-            return ListView(children: generateTutorTiles(context, snapshot));
+            return ListView(
+                children: generateTutorTiles(context, snapshot, _question));
           },
         ));
   }

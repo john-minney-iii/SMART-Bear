@@ -34,6 +34,16 @@ Future<void> submitQuestion(Question question) async {
   return;
 }
 
+Future<void> assignQuestionToTutor(Question question, UserAccount user) async {
+  final _data = await _questionCollectionRef
+      .where('authorId', isEqualTo: question.authorId)
+      .get();
+  final _id = _data.docs.first.id;
+  await _questionCollectionRef
+      .doc(_id)
+      .update({'answered': true, 'tutorId': user.id});
+}
+
 Stream<QuerySnapshot<Object?>> unAnsweredQuestionsStream() =>
     _questionCollectionRef.where('answered', isEqualTo: false).snapshots();
 
