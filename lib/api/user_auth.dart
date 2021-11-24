@@ -27,3 +27,11 @@ Future<void> signInWithEmailAndPassword(
     return;
   }
 }
+
+String? currentUserUid() =>
+    (_auth.currentUser != null) ? _auth.currentUser!.uid : null;
+
+String? currentUserEmail() =>
+    (_auth.currentUser != null) ? _auth.currentUser!.email : null;
+
+bool isUserAuth() => (_auth.currentUser != null) ? true : false;

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -73,7 +74,7 @@ class _StudentDashboardViewState extends State<StudentDashboardView> {
   }
 
   void _askQuestionOnPressed() {
-    // TODO: ask a question
+    moveToAskAQuestionView(context);
   }
 
   void _faqOnPressed() {

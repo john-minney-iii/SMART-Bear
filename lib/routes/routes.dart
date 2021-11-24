@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_bear_tutor/views/admin_dashboard_view.dart';
+import 'package:smart_bear_tutor/views/ask_a_question_view.dart';
+import 'package:smart_bear_tutor/views/dashboards/admin_dashboard_view.dart';
 import 'package:smart_bear_tutor/views/login_view.dart';
 import 'package:smart_bear_tutor/views/register_view.dart';
-import 'package:smart_bear_tutor/views/student_dashboard_view.dart';
+import 'package:smart_bear_tutor/views/dashboards/student_dashboard_view.dart';
 
 void moveToLoginViewReplacement(BuildContext context) =>
     Navigator.pushReplacement(
@@ -19,3 +20,6 @@ void moveToStudentDashboardReplacement(BuildContext context) =>
 void moveToAdminDashboardReplacement(BuildContext context) =>
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const AdminDashboardView()));
+
+void moveToAskAQuestionView(BuildContext context) => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => const AskAQuestionView()));
