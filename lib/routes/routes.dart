@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/views/ask_a_question_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/admin_dashboard_view.dart';
-import 'package:smart_bear_tutor/views/dashboards/manage_questions_view.dart';
+import 'package:smart_bear_tutor/views/admin_views/manage_questions_view.dart';
 import 'package:smart_bear_tutor/views/login_view.dart';
-import 'package:smart_bear_tutor/views/question_view.dart';
+import 'package:smart_bear_tutor/views/admin_views/question_view.dart';
 import 'package:smart_bear_tutor/views/register_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/student_dashboard_view.dart';
 
