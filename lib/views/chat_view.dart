@@ -28,6 +28,9 @@ class _ChatViewState extends State<ChatView> {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final TextEditingController _messageController = TextEditingController();
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: globalAppBar(context, 'Chat View', true, true),
@@ -45,23 +48,46 @@ class _ChatViewState extends State<ChatView> {
                 },
               ),
             ),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15.0, vertical: 10.0),
+                      child: TextFormField(
+                          controller: _messageController,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder()),
+                          validator: (value) {
+                            // TODO: any validation for message (char count)
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a message to send';
+                            }
+                            return null;
+                          }))
+                ],
+              ),
+            ),
             TextButton(
               child: const Text('Send Message'),
               onPressed: () {
-                _sendTestMessage();
+                if (_formKey.currentState!.validate()) {
+                  _sendMessage(_messageController.text);
+                }
               },
             )
           ],
         ));
   }
 
-  void _sendTestMessage() {
+  void _sendMessage(String message) {
     final _authId = currentUserUid();
-    final _testMessage = Message(
+    final _message = Message(
         authorId: _authId!,
         chatRoomId: _chatRoom.id,
-        message: 'This is a test message',
+        message: message,
         timestamp: DateTime.now());
-    createMessage(_testMessage);
+    createMessage(_message);
   }
 }
