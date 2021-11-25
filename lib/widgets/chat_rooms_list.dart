@@ -23,8 +23,7 @@ Widget _chatRoomListTile(
           ChatRoom _chatRoom = ChatRoom(
               id: doc['Id'],
               userIds: List.from(doc['Users']),
-              isOpen: doc['IsOpen']
-          );
+              isOpen: doc['IsOpen']);
           moveToChatView(context, _chatRoom);
         },
       ));

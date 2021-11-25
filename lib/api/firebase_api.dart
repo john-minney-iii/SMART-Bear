@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/models/chatroom.dart';
+import 'package:smart_bear_tutor/models/message.dart';
 import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/models/user_account_model.dart';
 
@@ -12,6 +13,8 @@ final CollectionReference _questionCollectionRef =
     _firestore.collection('Question');
 final CollectionReference _chatRoomCollectionRef =
     _firestore.collection('ChatRoom');
+final CollectionReference _messageCollectionRef =
+    _firestore.collection('Message');
 
 Future<void> createUser(User user, String role) async {
   _userCollectionRef
@@ -56,6 +59,34 @@ Future<void> createChatRoom(ChatRoom chatRoom) async {
   await _chatRoomCollectionRef.add(chatRoom.getJson());
 }
 
+Future<List<Message>?> getMessages(ChatRoom chatRoom) async {
+  if (isUserAuth()) {
+    QuerySnapshot _messageSnapshot = await _messageCollectionRef.get();
+    final _data = _messageSnapshot.docs;
+    var _messageList = List.filled(
+        0,
+        Message(
+            authorId: '',
+            chatRoomId: '',
+            message: '',
+            timestamp: DateTime.now()),
+        growable: true);
+    for (var message in _data) {
+      _messageList.add(Message(
+          authorId: message['AuthorId'],
+          chatRoomId: message['ChatRoomId'],
+          message: message['Message'],
+          timestamp: message['SentTimeStamp']));
+    }
+    return _messageList;
+  }
+  return null;
+}
+
+Future<void> createMessage(Message message) async {
+  await _messageCollectionRef.add(message.getJson());
+}
+
 Stream<QuerySnapshot<Object?>> unAnsweredQuestionsStream() =>
     _questionCollectionRef.where('answered', isEqualTo: false).snapshots();
 
@@ -64,3 +95,8 @@ Stream<QuerySnapshot<Object?>> tutorStream() =>
 
 Stream<QuerySnapshot<Object?>> chatRoomStream(String id) =>
     _chatRoomCollectionRef.where('Users', arrayContains: id).snapshots();
+
+Stream<QuerySnapshot<Object?>> messagesStream(ChatRoom chatRoom) =>
+    _messageCollectionRef
+        .where('ChatRoomId', isEqualTo: chatRoom.id)
+        .snapshots();

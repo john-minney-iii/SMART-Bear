@@ -53,5 +53,5 @@ void moveToChatRoomListView(BuildContext context) => Navigator.push(
     context, MaterialPageRoute(builder: (context) => const ChatRoomListView()));
 
 void moveToChatView(BuildContext context, ChatRoom chatRoom) => Navigator.push(
-  context, MaterialPageRoute(builder: (context) => ChatView(chatRoom: chatRoom))
-);
+    context,
+    MaterialPageRoute(builder: (context) => ChatView(chatRoom: chatRoom)));

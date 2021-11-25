@@ -146,7 +146,7 @@ class _RegisterViewState extends State<RegisterView> {
     if (user != null) {
       setState(() {});
       createUser(user, _role);
-      if (_role == _student) {
+      if (_role == _student || _role == _tutor) {
         moveToStudentDashboardReplacement(context);
       } else if (_role == _admin) {
         moveToAdminDashboardReplacement(context);

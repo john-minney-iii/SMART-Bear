@@ -18,7 +18,7 @@ Future<void> signInWithEmailAndPassword(
 
   if (user != null) {
     final _userAccount = await getUserAccount(user.uid);
-    if (_userAccount.role == 'Student') {
+    if (_userAccount.role == 'Student' || _userAccount.role == 'Tutor') {
       moveToStudentDashboardReplacement(context);
     } else if (_userAccount.role == 'Admin') {
       moveToAdminDashboardReplacement(context);
