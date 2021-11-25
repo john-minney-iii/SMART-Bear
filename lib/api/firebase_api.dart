@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
+import 'package:smart_bear_tutor/models/chatroom.dart';
 import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/models/user_account_model.dart';
 
@@ -9,6 +10,8 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _userCollectionRef = _firestore.collection('User');
 final CollectionReference _questionCollectionRef =
     _firestore.collection('Question');
+final CollectionReference _chatRoomCollectionRef =
+    _firestore.collection('ChatRoom');
 
 Future<void> createUser(User user, String role) async {
   _userCollectionRef
@@ -39,9 +42,18 @@ Future<void> assignQuestionToTutor(Question question, UserAccount user) async {
       .where('authorId', isEqualTo: question.authorId)
       .get();
   final _id = _data.docs.first.id;
+  ChatRoom _chatRoom = ChatRoom(
+      id: question.authorId + '_' + user.id,
+      userIds: [question.authorId, user.id],
+      isOpen: true);
+  await createChatRoom(_chatRoom);
   await _questionCollectionRef
       .doc(_id)
       .update({'answered': true, 'tutorId': user.id});
+}
+
+Future<void> createChatRoom(ChatRoom chatRoom) async {
+  await _chatRoomCollectionRef.add(chatRoom.getJson());
 }
 
 Stream<QuerySnapshot<Object?>> unAnsweredQuestionsStream() =>
@@ -49,3 +61,6 @@ Stream<QuerySnapshot<Object?>> unAnsweredQuestionsStream() =>
 
 Stream<QuerySnapshot<Object?>> tutorStream() =>
     _userCollectionRef.where('role', isEqualTo: 'Tutor').snapshots();
+
+Stream<QuerySnapshot<Object?>> chatRoomStream(String id) =>
+    _chatRoomCollectionRef.where('Users', arrayContains: id).snapshots();

@@ -43,6 +43,13 @@ class _StudentDashboardViewState extends State<StudentDashboardView> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: TextButton(
+              child: const Text('Chat Rooms'),
+              onPressed: _chatRoomsOnPressed,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: TextButton(
               child: const Text('FAQ'),
               onPressed: _faqOnPressed,
             ),
@@ -67,6 +74,10 @@ class _StudentDashboardViewState extends State<StudentDashboardView> {
     } else {
       throw 'Could Not Launch $_url';
     }
+  }
+
+  void _chatRoomsOnPressed() async {
+    moveToChatRoomListView(context);
   }
 
   void _tutorAvailabilityOnPressed() {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/views/admin_views/tutor_list_view.dart';
 import 'package:smart_bear_tutor/views/ask_a_question_view.dart';
+import 'package:smart_bear_tutor/views/chat_room_list_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/admin_dashboard_view.dart';
 import 'package:smart_bear_tutor/views/admin_views/manage_questions_view.dart';
 import 'package:smart_bear_tutor/views/login_view.dart';
@@ -45,3 +46,6 @@ void moveToTutorListView(
         context,
         MaterialPageRoute(
             builder: (context) => TutorListView(question: question)));
+
+void moveToChatRoomListView(BuildContext context) => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => const ChatRoomListView()));
