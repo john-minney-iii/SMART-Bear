@@ -53,6 +53,13 @@ Future<void> assignQuestionToTutor(Question question, UserAccount user) async {
   await _questionCollectionRef
       .doc(_id)
       .update({'answered': true, 'tutorId': user.id});
+  // Send First Message to ChatRoom (question from student)
+  final _message = Message(
+      authorId: question.authorId,
+      chatRoomId: _chatRoom.id,
+      message: question.body,
+      timestamp: DateTime.now());
+  createMessage(_message);
 }
 
 Future<void> createChatRoom(ChatRoom chatRoom) async {
