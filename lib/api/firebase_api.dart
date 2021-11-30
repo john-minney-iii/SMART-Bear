@@ -99,4 +99,5 @@ Stream<QuerySnapshot<Object?>> chatRoomStream(String id) =>
 Stream<QuerySnapshot<Object?>> messagesStream(ChatRoom chatRoom) =>
     _messageCollectionRef
         .where('ChatRoomId', isEqualTo: chatRoom.id)
+        .orderBy('SentTimeStamp', descending: false)
         .snapshots();

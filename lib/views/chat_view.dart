@@ -74,6 +74,7 @@ class _ChatViewState extends State<ChatView> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _sendMessage(_messageController.text);
+                  _messageController.text = '';
                 }
               },
             )
