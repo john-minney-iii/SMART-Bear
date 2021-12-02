@@ -35,8 +35,8 @@ Future<bool> checkUserQuestions(String id, String classCode) async {
   final _data = await _questionCollectionRef
   .where('classCode', isEqualTo: classCode.toUpperCase())
   .where('authorID', isEqualTo: id)
-  .get();
-  if(_data.size > 0 ){
+  .snapshots();
+  if(await _data.isEmpty){
     found = true;
   }
   return found;
