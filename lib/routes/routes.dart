@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/models/chatroom.dart';
 import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/views/admin_views/tutor_list_view.dart';
+import 'package:smart_bear_tutor/views/admin_views/user_management/edit_account_view.dart';
 import 'package:smart_bear_tutor/views/ask_a_question_view.dart';
 import 'package:smart_bear_tutor/views/chat_room_list_view.dart';
 import 'package:smart_bear_tutor/views/chat_view.dart';
@@ -67,3 +69,8 @@ void moveToStudentFAQView(BuildContext context) => Navigator.push(
 
 void moveToManageUsersView(BuildContext context) => Navigator.push(
     context, MaterialPageRoute(builder: (context) => const ManageUsersView()));
+
+void moveToEditAccountView(
+        BuildContext context, QueryDocumentSnapshot<Object?> user) =>
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => EditAccountView(user: user)));
