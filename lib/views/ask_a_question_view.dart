@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/firebase_api.dart';
@@ -100,12 +101,44 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
     );
   }
 
+  void _showAlertDialog(){
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {Navigator.of(context, rootNavigator: true).pop('dialog'); },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("You've already asked a question for this class."),
+      content: Text("Please make an appointment with UNC Tutoring Services to get further help."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   void _submitNewQuestion() async {
     if (_formKey.currentState!.validate()) {
       final _userId = currentUserUid();
+      if (await checkUserQuestions(_userId.toString(), _classController.text))
+      {
+        // checkUserQuestions returns true if matching classcode question exists
+        _showAlertDialog();
+        return;
+      }
+
       Question _newQuestion = Question(
           authorId: _userId!,
-          classCode: _classController.text,
+          classCode: _classController.text.toUpperCase(),
           questionDate: DateTime.now(),
           subject: _subjectController.text,
           body: _questionController.text);

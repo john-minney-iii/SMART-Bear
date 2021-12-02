@@ -28,6 +28,20 @@ Future<UserAccount> getUserAccount(String id) async {
       role: _data['role'], email: _data['email'], id: _data['id']);
 }
 
+Future<bool> checkUserQuestions(String id, String classCode) async {
+  // This function checks to see if there is a question document with matching
+  // user id and class code, to restrict one question per classcode.
+  bool found = false;
+  final _data = await _questionCollectionRef
+  .where('classCode', isEqualTo: classCode.toUpperCase())
+  .where('authorID', isEqualTo: id)
+  .get();
+  if(_data.size > 0 ){
+    found = true;
+  }
+  return found;
+}
+
 Future<String> getUserEmailById(String id) async {
   final _data = await _userCollectionRef.doc(id).get();
   return _data['email'];
