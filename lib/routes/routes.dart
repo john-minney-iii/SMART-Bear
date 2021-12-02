@@ -14,6 +14,7 @@ import 'package:smart_bear_tutor/views/admin_views/question_view.dart';
 import 'package:smart_bear_tutor/views/register_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/student_dashboard_view.dart';
 import 'package:smart_bear_tutor/views/student_faq_view.dart';
+import 'package:smart_bear_tutor/views/admin_views/manage_users_view.dart';
 
 void moveToLoginViewReplacement(BuildContext context) =>
     Navigator.pushReplacement(
@@ -63,3 +64,7 @@ void moveToAdminFAQView(BuildContext context) => Navigator.push(
 
 void moveToStudentFAQView(BuildContext context) => Navigator.push(
     context, MaterialPageRoute(builder: (context) => const StudentFAQView()));
+
+void moveToManageUsersView(BuildContext context) => Navigator.push(
+  context, MaterialPageRoute(builder: (context) => const ManageUsersView())
+);
