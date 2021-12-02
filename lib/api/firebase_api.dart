@@ -62,6 +62,15 @@ Future<void> assignQuestionToTutor(Question question, UserAccount user) async {
   createMessage(_message);
 }
 
+Future<bool> updateUserRole(String id, String role) async {
+  try {
+    await _userCollectionRef.doc(id).update({'role': role});
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 Future<void> createChatRoom(ChatRoom chatRoom) async {
   await _chatRoomCollectionRef.add(chatRoom.getJson());
 }
