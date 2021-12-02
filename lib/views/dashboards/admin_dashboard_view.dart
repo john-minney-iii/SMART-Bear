@@ -74,7 +74,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
   }
 
   void _manageUsersOnPressed() {
-    // TODO: manage users
+    moveToManageUsersView(context);
   }
 
   void _manageFaqOnPressed() {
