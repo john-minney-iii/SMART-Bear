@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AdminFAQView extends StatefulWidget {
   const AdminFAQView({Key? key}) : super(key: key);
-
 
   @override
   State<AdminFAQView> createState() => _AdminFAQViewState();
 }
 
 class _AdminFAQViewState extends State<AdminFAQView> {
-
   @override
   void initState() {
     super.initState();
@@ -18,13 +17,11 @@ class _AdminFAQViewState extends State<AdminFAQView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        leading:
-        IconButton(
+        leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: (){
+          onPressed: () {
             moveToAdminDashboardReplacement(context);
           },
         ),
@@ -37,9 +34,7 @@ class _AdminFAQViewState extends State<AdminFAQView> {
           children: const <Widget>[
             Expanded(
               child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: FAQListStatefulWidget()
-              ),
+                  padding: EdgeInsets.all(10), child: FAQListStatefulWidget()),
             ),
           ],
         ),
@@ -58,67 +53,38 @@ class FAQListStatefulWidget extends StatefulWidget {
 
 /// This is the private State class that goes with FAQListStatefulWidget.
 class _FAQListStatefulWidgetState extends State<FAQListStatefulWidget> {
-  final List<Item> _data = generateItems(20);
-
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        child: _buildPanel(),
-      ),
-    );
+    return SingleChildScrollView(child: _buildPanel(context));
   }
 
-  Widget _buildPanel() {
-    return ExpansionPanelList(
-      dividerColor: const Color(0xff173f5f),
-      expansionCallback: (int index, bool isExpanded) {
-        setState(() {
-          _data[index].isExpanded = !isExpanded;
+  Widget _buildPanel(BuildContext context) {
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('FAQ').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) return const Text('Loading FAQ...');
+          return ExpansionPanelList.radio(
+            dividerColor: const Color(0xff173f5f),
+            expandedHeaderPadding: const EdgeInsets.only(top: 16.0),
+            children: snapshot.data.docs.map<ExpansionPanel>((document) {
+              return ExpansionPanelRadio(
+                value: document['QuestionNumber'],
+                headerBuilder: (BuildContext context, bool isExpanded) {
+                  return ListTile(
+                    title: Text(document['Question']),
+                  );
+                },
+                body: Container(
+                  child: ListTile(
+                    minVerticalPadding: 8,
+                    title: Text(document['Answer']),
+                  ),
+                  decoration:
+                      const BoxDecoration(border: Border(top: BorderSide(color: Color(0xff173f5f)))),
+                ),
+              );
+            }).toList(),
+          );
         });
-      },
-      children: _data.map<ExpansionPanel>((Item item) {
-        return ExpansionPanel(
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return ListTile(
-              title: Text(item.headerValue),
-            );
-          },
-          body: ListTile(
-              title: Text(item.expandedValue),
-              subtitle:
-              const Text('To delete this panel, tap the trash can icon'),
-              trailing: const Icon(Icons.delete),
-              onTap: () {
-                setState(() {
-                  _data.removeWhere((Item currentItem) => item == currentItem);
-                });
-              }),
-          isExpanded: item.isExpanded,
-        );
-      }).toList(),
-    );
   }
-}
-
-// stores ExpansionPanel state information
-class Item {
-  Item({
-    required this.expandedValue,
-    required this.headerValue,
-    this.isExpanded = false,
-  });
-
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
-}
-
-List<Item> generateItems(int numberOfItems) {
-  return List<Item>.generate(numberOfItems, (int index) {
-    return Item(
-      headerValue: 'Question $index title',
-      expandedValue: 'This is item number $index',
-    );
-  });
 }
