@@ -27,7 +27,7 @@ class _ManageUsersViewState extends State<ManageUsersView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: globalAppBar(context, 'Manage Users', true, true),
+      appBar: globalAppBar(context, 'Manage ${_selectedRole}s', true, true),
       body: StreamBuilder(
         stream: _streams[_selectedRole],
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
