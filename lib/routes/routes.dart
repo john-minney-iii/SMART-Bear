@@ -66,5 +66,4 @@ void moveToStudentFAQView(BuildContext context) => Navigator.push(
     context, MaterialPageRoute(builder: (context) => const StudentFAQView()));
 
 void moveToManageUsersView(BuildContext context) => Navigator.push(
-  context, MaterialPageRoute(builder: (context) => const ManageUsersView())
-);
+    context, MaterialPageRoute(builder: (context) => const ManageUsersView()));
