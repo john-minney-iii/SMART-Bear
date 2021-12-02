@@ -89,7 +89,7 @@ class _StudentDashboardViewState extends State<StudentDashboardView> {
   }
 
   void _faqOnPressed() {
-    // TODO: move to FAQ view
+    moveToStudentFAQView(context);
   }
 
   void _settingsOnPressed() {
