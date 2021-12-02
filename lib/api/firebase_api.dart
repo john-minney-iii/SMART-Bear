@@ -111,6 +111,8 @@ Future<void> createMessage(Message message) async {
 Stream<QuerySnapshot<Object?>> unAnsweredQuestionsStream() =>
     _questionCollectionRef.where('answered', isEqualTo: false).snapshots();
 
+Stream<QuerySnapshot<Object?>> userStream() => _userCollectionRef.snapshots();
+
 Stream<QuerySnapshot<Object?>> tutorStream() =>
     _userCollectionRef.where('role', isEqualTo: 'Tutor').snapshots();
 

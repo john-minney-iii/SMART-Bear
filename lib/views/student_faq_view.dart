@@ -79,8 +79,9 @@ class _FAQListStatefulWidgetState extends State<FAQListStatefulWidget> {
                     minVerticalPadding: 8,
                     title: Text(document['Answer']),
                   ),
-                  decoration:
-                  const BoxDecoration(border: Border(top: BorderSide(color: Color(0xff173f5f)))),
+                  decoration: const BoxDecoration(
+                      border:
+                          Border(top: BorderSide(color: Color(0xff173f5f)))),
                 ),
               );
             }).toList(),
