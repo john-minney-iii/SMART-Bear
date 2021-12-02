@@ -14,7 +14,7 @@ import 'package:smart_bear_tutor/views/admin_views/question_view.dart';
 import 'package:smart_bear_tutor/views/register_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/student_dashboard_view.dart';
 import 'package:smart_bear_tutor/views/student_faq_view.dart';
-import 'package:smart_bear_tutor/views/admin_views/manage_users_view.dart';
+import 'package:smart_bear_tutor/views/admin_views/user_management/manage_users_view.dart';
 
 void moveToLoginViewReplacement(BuildContext context) =>
     Navigator.pushReplacement(
