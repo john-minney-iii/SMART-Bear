@@ -78,7 +78,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
   }
 
   void _manageFaqOnPressed() {
-    // TODO: manage faq
+    moveToAdminFAQView(context);
   }
 
   void _sendNotificationsOnPressed() {
