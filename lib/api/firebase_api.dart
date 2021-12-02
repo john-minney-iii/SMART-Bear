@@ -99,8 +99,14 @@ Stream<QuerySnapshot<Object?>> unAnsweredQuestionsStream() =>
 
 Stream<QuerySnapshot<Object?>> userStream() => _userCollectionRef.snapshots();
 
+Stream<QuerySnapshot<Object?>> studentStream() =>
+    _userCollectionRef.where('role', isEqualTo: 'Student').snapshots();
+
 Stream<QuerySnapshot<Object?>> tutorStream() =>
     _userCollectionRef.where('role', isEqualTo: 'Tutor').snapshots();
+
+Stream<QuerySnapshot<Object?>> adminStream() =>
+    _userCollectionRef.where('role', isEqualTo: 'Admin').snapshots();
 
 Stream<QuerySnapshot<Object?>> chatRoomStream(String id) =>
     _chatRoomCollectionRef.where('Users', arrayContains: id).snapshots();
