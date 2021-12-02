@@ -1,17 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/models/chatroom.dart';
 import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/views/admin_views/tutor_list_view.dart';
+import 'package:smart_bear_tutor/views/admin_views/user_management/edit_account_view.dart';
 import 'package:smart_bear_tutor/views/ask_a_question_view.dart';
 import 'package:smart_bear_tutor/views/chat_room_list_view.dart';
 import 'package:smart_bear_tutor/views/chat_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/admin_dashboard_view.dart';
+import 'package:smart_bear_tutor/views/admin_views/admin_faq_view.dart';
 import 'package:smart_bear_tutor/views/admin_views/manage_questions_view.dart';
 import 'package:smart_bear_tutor/views/login_view.dart';
 import 'package:smart_bear_tutor/views/admin_views/question_view.dart';
 import 'package:smart_bear_tutor/views/register_view.dart';
 import 'package:smart_bear_tutor/views/dashboards/student_dashboard_view.dart';
+import 'package:smart_bear_tutor/views/student_faq_view.dart';
+import 'package:smart_bear_tutor/views/admin_views/user_management/manage_users_view.dart';
 
 void moveToLoginViewReplacement(BuildContext context) =>
     Navigator.pushReplacement(
@@ -55,3 +60,17 @@ void moveToChatRoomListView(BuildContext context) => Navigator.push(
 void moveToChatView(BuildContext context, ChatRoom chatRoom) => Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => ChatView(chatRoom: chatRoom)));
+
+void moveToAdminFAQView(BuildContext context) => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => const AdminFAQView()));
+
+void moveToStudentFAQView(BuildContext context) => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => const StudentFAQView()));
+
+void moveToManageUsersView(BuildContext context) => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => const ManageUsersView()));
+
+void moveToEditAccountView(
+        BuildContext context, QueryDocumentSnapshot<Object?> user) =>
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => EditAccountView(user: user)));

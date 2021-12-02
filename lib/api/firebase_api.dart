@@ -28,6 +28,20 @@ Future<UserAccount> getUserAccount(String id) async {
       role: _data['role'], email: _data['email'], id: _data['id']);
 }
 
+Future<bool> checkUserQuestions(String id, String classCode) async {
+  // This function checks to see if there is a question document with matching
+  // user id and class code, to restrict one question per classcode.
+  bool found = false;
+  final _data = await _questionCollectionRef
+  .where('classCode', isEqualTo: classCode.toUpperCase())
+  .where('authorID', isEqualTo: id)
+  .snapshots();
+  if(await _data.isEmpty != true){
+    found = true;
+  }
+  return found;
+}
+
 Future<String> getUserEmailById(String id) async {
   final _data = await _userCollectionRef.doc(id).get();
   return _data['email'];
@@ -53,6 +67,22 @@ Future<void> assignQuestionToTutor(Question question, UserAccount user) async {
   await _questionCollectionRef
       .doc(_id)
       .update({'answered': true, 'tutorId': user.id});
+  // Send First Message to ChatRoom (question from student)
+  final _message = Message(
+      authorId: question.authorId,
+      chatRoomId: _chatRoom.id,
+      message: question.body,
+      timestamp: DateTime.now());
+  createMessage(_message);
+}
+
+Future<bool> updateUserRole(String id, String role) async {
+  try {
+    await _userCollectionRef.doc(id).update({'role': role});
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 Future<void> createChatRoom(ChatRoom chatRoom) async {
@@ -90,8 +120,16 @@ Future<void> createMessage(Message message) async {
 Stream<QuerySnapshot<Object?>> unAnsweredQuestionsStream() =>
     _questionCollectionRef.where('answered', isEqualTo: false).snapshots();
 
+Stream<QuerySnapshot<Object?>> userStream() => _userCollectionRef.snapshots();
+
+Stream<QuerySnapshot<Object?>> studentStream() =>
+    _userCollectionRef.where('role', isEqualTo: 'Student').snapshots();
+
 Stream<QuerySnapshot<Object?>> tutorStream() =>
     _userCollectionRef.where('role', isEqualTo: 'Tutor').snapshots();
+
+Stream<QuerySnapshot<Object?>> adminStream() =>
+    _userCollectionRef.where('role', isEqualTo: 'Admin').snapshots();
 
 Stream<QuerySnapshot<Object?>> chatRoomStream(String id) =>
     _chatRoomCollectionRef.where('Users', arrayContains: id).snapshots();
