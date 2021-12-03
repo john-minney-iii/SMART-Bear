@@ -31,15 +31,11 @@ Future<UserAccount> getUserAccount(String id) async {
 Future<bool> checkUserQuestions(String id, String classCode) async {
   // This function checks to see if there is a question document with matching
   // user id and class code, to restrict one question per classcode.
-  bool found = false;
   final _data = await _questionCollectionRef
-  .where('classCode', isEqualTo: classCode.toUpperCase())
-  .where('authorID', isEqualTo: id)
-  .snapshots();
-  if(await _data.isEmpty != true){
-    found = true;
-  }
-  return found;
+      .where('authorId', isEqualTo: id)
+      .where('classCode', isEqualTo: classCode)
+      .get();
+  return _data.docs.isNotEmpty;
 }
 
 Future<String> getUserEmailById(String id) async {

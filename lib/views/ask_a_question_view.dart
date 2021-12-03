@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/firebase_api.dart';
@@ -101,19 +100,51 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
     );
   }
 
-  void _showAlertDialog(){
+  void _showAlreadyAskedAlertDialog() {
     // set up the button
     Widget okButton = TextButton(
-      child: Text("OK"),
-      onPressed: () {Navigator.of(context, rootNavigator: true).pop('dialog'); },
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+      },
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("You've already asked a question for this class."),
-      content: Text("Please make an appointment with UNC Tutoring Services to get further help."),
+      title: const Text("You've already asked a question for this class."),
+      content: const Text(
+          "Please make an appointment with UNC Tutoring Services to get further help."),
       actions: [
         okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void _showSuccessfulAlertDialog() {
+    // set up the button
+    Widget thanksButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+        moveToStudentDashboardReplacement(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text('Question Successfully Sent!'),
+      content: const Text(
+          'Your question will be assigned to a tutor as soon as possible. We encourage you to please schedule an appointment at your earliest convenience for further tutoring assistance! We are located in the lower level of Michener Library. Please access our website Tutorial Services - University of Northern Colorado (unco.edu) to schedule an appointment with our tutors!'),
+      actions: [
+        thanksButton,
       ],
     );
 
@@ -129,21 +160,18 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
   void _submitNewQuestion() async {
     if (_formKey.currentState!.validate()) {
       final _userId = currentUserUid();
-      if (await checkUserQuestions(_userId.toString(), _classController.text))
-      {
-        // checkUserQuestions returns true if matching classcode question exists
-        _showAlertDialog();
+      if (await checkUserQuestions(_userId!, _classController.text)) {
+        _showAlreadyAskedAlertDialog();
         return;
       }
-
       Question _newQuestion = Question(
-          authorId: _userId!,
+          authorId: _userId,
           classCode: _classController.text.toUpperCase(),
           questionDate: DateTime.now(),
           subject: _subjectController.text,
           body: _questionController.text);
       await submitQuestion(_newQuestion);
-      moveToStudentDashboardReplacement(context);
+      _showSuccessfulAlertDialog();
     }
   }
 }
