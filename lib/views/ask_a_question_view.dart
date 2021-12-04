@@ -164,6 +164,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                     // TODO: add char limit
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
+                    minLines: 5,
                     controller: _questionController,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -180,7 +181,46 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
               ],
             ),
           ),
-          blueCallToAction('Submit', _submitNewQuestion)
+          Padding(
+              padding: const EdgeInsets.only(bottom: 10.0, left: 15.0),
+              child: Container(
+                  alignment: Alignment.centerLeft,
+                  child: const Text('Attach File (optional)'))),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Container(
+              height: 100.0,
+              decoration: BoxDecoration(
+                  color: Colors.blue, borderRadius: BorderRadius.circular(5.0)),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: const Icon(Icons.camera_alt_outlined),
+                      iconSize: 45.0,
+                      color: Colors.white,
+                      tooltip: 'Use Camera',
+                      onPressed: () {
+                        // TODO: allow user to take a picture
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.image),
+                      iconSize: 45.0,
+                      color: Colors.white,
+                      tooltip: 'Choose From Gallery',
+                      onPressed: () {
+                        // TODO: allow user to choose a picture from their gallery
+                      },
+                    ),
+                  ]),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: blueCallToAction('Submit', _submitNewQuestion),
+          )
         ],
       ),
     );
