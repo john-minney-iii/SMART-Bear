@@ -99,6 +99,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                               }).toList(),
                               onChanged: (value) {
                                 setState(() {
+                                  _selectedCode = 0;
                                   _selectedSubject = value!;
                                   _dynamicClassCodeDropDown(value);
                                 });
