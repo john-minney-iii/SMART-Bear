@@ -83,43 +83,57 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
               children: <Widget>[
                 // Dropdown for Class Subjects
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 10.0),
-                  child: DropdownButtonFormField<String>(
-                      value: _selectedSubject,
-                      items: _offeredSubjects.map((String value) {
-                        return DropdownMenuItem<String>(
-                            value: value, child: Text(value));
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedSubject = value!;
-                          _dynamicClassCodeDropDown(value);
-                        });
-                      },
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Class Subject',
-                          hintText: 'Enter your class subject (ie MATH)')),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 10.0),
-                  child: DropdownButtonFormField<int>(
-                      value: _selectedCode,
-                      items: _offeredCodes.map((int value) {
-                        return DropdownMenuItem<int>(
-                            value: value, child: Text(value.toString()));
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedCode = value!;
-                        });
-                      },
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Class Code',
-                          hintText: 'Enter your class code (ie 101)')),
+                  padding: const EdgeInsets.only(top: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: SizedBox(
+                          width: 170.0,
+                          child: DropdownButtonFormField<String>(
+                              value: _selectedSubject,
+                              items: _offeredSubjects.map((String value) {
+                                return DropdownMenuItem<String>(
+                                    value: value, child: Text(value));
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedSubject = value!;
+                                  _dynamicClassCodeDropDown(value);
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Class Subject',
+                                  hintText:
+                                      'Enter your class subject (ie MATH)')),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15.0),
+                        child: SizedBox(
+                          width: 170.0,
+                          child: DropdownButtonFormField<int>(
+                              value: _selectedCode,
+                              items: _offeredCodes.map((int value) {
+                                return DropdownMenuItem<int>(
+                                    value: value,
+                                    child: Text(value.toString()));
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedCode = value!;
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Class Code',
+                                  hintText: 'Enter your class code (ie 101)')),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -145,7 +159,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                         child: const Text('Enter your question below:'))),
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 10.0, right: 10.0, bottom: 10.0),
+                      left: 15.0, right: 15.0, bottom: 10.0),
                   child: TextFormField(
                     // TODO: add char limit
                     keyboardType: TextInputType.multiline,
