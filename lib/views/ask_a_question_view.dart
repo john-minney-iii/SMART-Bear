@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/firebase_api.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
+import 'package:smart_bear_tutor/models/offered_class.dart';
 import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/widgets/blue_call_to_action.dart';
@@ -19,9 +20,44 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
   final TextEditingController _classController = TextEditingController();
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _questionController = TextEditingController();
+  // Lists to fill out the dropdown buttons
+  final List<String> _offeredSubjects = [];
+  final List<int> _offeredCodes = [];
+  // Chosen Data for Class Code
+  late String _selectedSubject = ''; // ie. MATH, CS, BACS, ect
+  final int _selectedCode = 0; // ie. 101, 350, ect
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _gatherOfferedClasses(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return _askAQuestionViewWidget();
+        }
+        return const Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(child: CircularProgressIndicator()));
+      },
+    );
+  }
+
+  Future<void> _gatherOfferedClasses() async {
+    if (_offeredSubjects.isEmpty) {
+      List<OfferedClass>? _offeredClasses = await getOfferedClasses();
+      if (_offeredClasses != null && _offeredClasses.isNotEmpty) {
+        _offeredSubjects.add(''); // Initialize the list with an empty value
+        for (OfferedClass _class in _offeredClasses) {
+          if (!_offeredSubjects.contains(_class.subject)) {
+            // Make sure the value isn't already in the list
+            _offeredSubjects.add(_class.subject);
+          }
+        }
+      }
+    }
+  }
+
+  Widget _askAQuestionViewWidget() {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: globalAppBar(context, 'Ask A Question', true, true),
@@ -31,6 +67,26 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
             key: _formKey,
             child: Column(
               children: <Widget>[
+                // Dropdown for Class Subjects
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 10.0),
+                  child: DropdownButtonFormField<String>(
+                      value: _selectedSubject,
+                      items: _offeredSubjects.map((String value) {
+                        return DropdownMenuItem<String>(
+                            value: value, child: Text(value));
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedSubject = value!;
+                        });
+                      },
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Class Subject',
+                          hintText: 'Enter your class subject (ie MATH)')),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 15.0, vertical: 10.0),

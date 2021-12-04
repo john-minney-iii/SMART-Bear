@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/models/chatroom.dart';
 import 'package:smart_bear_tutor/models/message.dart';
+import 'package:smart_bear_tutor/models/offered_class.dart';
 import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/models/user_account_model.dart';
 
@@ -15,6 +16,8 @@ final CollectionReference _chatRoomCollectionRef =
     _firestore.collection('ChatRoom');
 final CollectionReference _messageCollectionRef =
     _firestore.collection('Message');
+final CollectionReference _offeredClassCollectionRef =
+    _firestore.collection('ClassesOffered');
 
 Future<void> createUser(User user, String role) async {
   _userCollectionRef
@@ -79,6 +82,18 @@ Future<bool> updateUserRole(String id, String role) async {
   } catch (e) {
     return false;
   }
+}
+
+Future<List<OfferedClass>?> getOfferedClasses() async {
+  final _data = await _offeredClassCollectionRef.get();
+  final _classes = _data.docs;
+  if (_classes.isNotEmpty) {
+    return _classes
+        .map((e) =>
+            OfferedClass(classCode: e['ClassCode'], subject: e['Subject']))
+        .toList();
+  }
+  return null;
 }
 
 Future<void> createChatRoom(ChatRoom chatRoom) async {
