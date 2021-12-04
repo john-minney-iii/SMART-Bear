@@ -20,12 +20,14 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
   final TextEditingController _classController = TextEditingController();
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _questionController = TextEditingController();
+  // Dictionary of offered classes and their codes
+  final Map<String, List<int>> _offeredClassesMap = {};
   // Lists to fill out the dropdown buttons
   final List<String> _offeredSubjects = [];
-  final List<int> _offeredCodes = [];
+  late List<int> _offeredCodes = [];
   // Chosen Data for Class Code
   late String _selectedSubject = ''; // ie. MATH, CS, BACS, ect
-  final int _selectedCode = 0; // ie. 101, 350, ect
+  late int _selectedCode = 0; // ie. 101, 350, ect
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +47,29 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
   Future<void> _gatherOfferedClasses() async {
     if (_offeredSubjects.isEmpty) {
       List<OfferedClass>? _offeredClasses = await getOfferedClasses();
+      // Create List of class subjects
       if (_offeredClasses != null && _offeredClasses.isNotEmpty) {
         _offeredSubjects.add(''); // Initialize the list with an empty value
         for (OfferedClass _class in _offeredClasses) {
-          if (!_offeredSubjects.contains(_class.subject)) {
-            // Make sure the value isn't already in the list
+          // Create the dictionary of class subjects and codes
+          if (_offeredClassesMap.containsKey(_class.subject)) {
+            _offeredClassesMap[_class.subject]!.add(_class.classCode);
+          } else {
             _offeredSubjects.add(_class.subject);
+            _offeredClassesMap[_class.subject] = [_class.classCode];
           }
         }
       }
     }
+  }
+
+  void _dynamicClassCodeDropDown(String subject) {
+    final _subjectCodes = _offeredClassesMap[subject] as List<int>;
+    _subjectCodes.add(0);
+    _subjectCodes.sort();
+    setState(() {
+      _offeredCodes = _subjectCodes;
+    });
   }
 
   Widget _askAQuestionViewWidget() {
@@ -80,12 +95,32 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                       onChanged: (value) {
                         setState(() {
                           _selectedSubject = value!;
+                          _dynamicClassCodeDropDown(value);
                         });
                       },
                       decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Class Subject',
                           hintText: 'Enter your class subject (ie MATH)')),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 10.0),
+                  child: DropdownButtonFormField<int>(
+                      value: _selectedCode,
+                      items: _offeredCodes.map((int value) {
+                        return DropdownMenuItem<int>(
+                            value: value, child: Text(value.toString()));
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedCode = value!;
+                        });
+                      },
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Class Code',
+                          hintText: 'Enter your class code (ie 101)')),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
