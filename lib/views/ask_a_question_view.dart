@@ -17,7 +17,6 @@ class AskAQuestionView extends StatefulWidget {
 
 class _AskAQuestionViewState extends State<AskAQuestionView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _classController = TextEditingController();
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _questionController = TextEditingController();
   // Dictionary of offered classes and their codes
@@ -121,24 +120,6 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                           border: OutlineInputBorder(),
                           labelText: 'Class Code',
                           hintText: 'Enter your class code (ie 101)')),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 10.0),
-                  child: TextFormField(
-                    controller: _classController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Class',
-                        hintText: 'Enter your class code (ie MATH350)'),
-                    validator: (value) {
-                      // TODO: validator for class code
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a valid class ID';
-                      }
-                      return null;
-                    },
-                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -250,14 +231,15 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
 
   void _submitNewQuestion() async {
     if (_formKey.currentState!.validate()) {
+      final _class = _selectedSubject + _selectedCode.toString();
       final _userId = currentUserUid();
-      if (await checkUserQuestions(_userId!, _classController.text)) {
+      if (await checkUserQuestions(_userId!, _class)) {
         _showAlreadyAskedAlertDialog();
         return;
       }
       Question _newQuestion = Question(
           authorId: _userId,
-          classCode: _classController.text.toUpperCase(),
+          classCode: _class,
           questionDate: DateTime.now(),
           subject: _subjectController.text,
           body: _questionController.text);
