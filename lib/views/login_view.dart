@@ -16,6 +16,7 @@ class _LoginViewState extends State<LoginView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _loginFail = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,9 @@ class _LoginViewState extends State<LoginView> {
                   key: _formKey,
                   child: Column(
                     children: <Widget>[
+                      Text('Invalid Email or Password. Please try again.',
+                          style: TextStyle(
+                              color: (_loginFail) ? Colors.red : Colors.white)),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: TextFormField(
@@ -103,8 +107,13 @@ class _LoginViewState extends State<LoginView> {
 
   void _login() async {
     if (_formKey.currentState!.validate()) {
-      signInWithEmailAndPassword(
+      bool _loginResponse = await signInWithEmailAndPassword(
           context, _emailController.text, _passwordController.text);
+      if (!_loginResponse) {
+        setState(() {
+          _loginFail = true;
+        });
+      }
     }
   }
 }

@@ -68,9 +68,11 @@ class _ChatViewState extends State<ChatView> {
                     controller: _scrollController,
                     child: StreamBuilder(
                       stream: messagesStream(_chatRoom),
-                      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (!snapshot.hasData) {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                         return Column(children: generateMessageTiles(snapshot));
                       },

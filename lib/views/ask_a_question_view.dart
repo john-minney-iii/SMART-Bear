@@ -131,7 +131,8 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                                 decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Class Code',
-                                    hintText: 'Enter your class code (ie 101)')),
+                                    hintText:
+                                        'Enter your class code (ie 101)')),
                           ),
                         ),
                       ],
@@ -193,7 +194,8 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
               child: Container(
                 height: 100.0,
                 decoration: BoxDecoration(
-                    color: Colors.blue, borderRadius: BorderRadius.circular(5.0)),
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(5.0)),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
