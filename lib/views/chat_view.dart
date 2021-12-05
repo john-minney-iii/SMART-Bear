@@ -40,6 +40,15 @@ class _ChatViewState extends State<ChatView> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Sorry this chatroom is closed',
+                style: TextStyle(
+                  color: (_chatRoomOpen) ? Colors.white : Colors.red
+                ),
+              )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: StreamBuilder(
                 stream: messagesStream(_chatRoom),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
