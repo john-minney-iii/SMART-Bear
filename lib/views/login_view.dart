@@ -26,9 +26,13 @@ class _LoginViewState extends State<LoginView> {
           child: Column(
             children: <Widget>[
               const SizedBox(height: 60.0),
+              Image.asset(
+                'assets/unco-bear-logo.png',
+                height: 125.0,
+                width: 125.0,
+              ),
               const Text('SMART BEAR App',
                   style: TextStyle(color: Colors.black, fontSize: 24.0)),
-              const SizedBox(height: 50.0),
               Form(
                 key: _formKey,
                 child: Column(
