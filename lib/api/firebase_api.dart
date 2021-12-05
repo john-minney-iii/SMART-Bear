@@ -101,6 +101,14 @@ Future<void> createChatRoom(ChatRoom chatRoom) async {
   await _chatRoomCollectionRef.add(chatRoom.getJson());
 }
 
+Future<void> closeChatRoom(ChatRoom chatRoom) async {
+  final _data =
+      await _chatRoomCollectionRef.where('Id', isEqualTo: chatRoom.id).get();
+  await _chatRoomCollectionRef
+      .doc(_data.docs.first.id)
+      .update({'IsOpen': false});
+}
+
 Future<List<Message>?> getMessages(ChatRoom chatRoom) async {
   if (isUserAuth()) {
     QuerySnapshot _messageSnapshot = await _messageCollectionRef.get();

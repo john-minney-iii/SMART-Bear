@@ -26,6 +26,7 @@ class _ChatViewState extends State<ChatView> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _messageController = TextEditingController();
   final _scrollController = ScrollController();
+  String _role = '';
 
   @override
   void initState() {
@@ -93,6 +94,15 @@ class _ChatViewState extends State<ChatView> {
           key: _formKey,
           child: Row(
             children: <Widget>[
+              FutureBuilder(
+                future: _getUserRole(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return _closeChatRoomIconButton();
+                  }
+                  return Container();
+                },
+              ),
               Expanded(
                 child: TextFormField(
                     controller: _messageController,
@@ -122,6 +132,22 @@ class _ChatViewState extends State<ChatView> {
         ));
   }
 
+  Widget _closeChatRoomIconButton() {
+    if (_role == 'Tutor') {
+      return IconButton(
+        icon: Icon(Icons.close),
+        color: Colors.blue,
+        iconSize: 25.0,
+        onPressed: () async {
+          _showCloseChatroomConfirmAlertDialog();
+        },
+      );
+    }
+    return Container();
+  }
+
+  Future<void> _getUserRole() async => _role = await currentUserRole();
+
   void _sendMessage(String message) {
     if (_chatRoomOpen) {
       final _authId = currentUserUid();
@@ -150,6 +176,37 @@ class _ChatViewState extends State<ChatView> {
       title: const Text("This ChatRoom is Closed"),
       content:
           const Text("Sorry. You can't send messages to closed Chat Rooms."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void _showCloseChatroomConfirmAlertDialog() {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () async {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+        await closeChatRoom(_chatRoom);
+        setState(() {
+          _chatRoomOpen = false;
+        });
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("You are about to close this chatroom"),
+      content: const Text("Once it is closed it can't be reopened"),
       actions: [
         okButton,
       ],
