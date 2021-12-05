@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/models/chatroom.dart';
 import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/views/admin_views/tutor_list_view.dart';
@@ -28,6 +29,17 @@ void moveToRegisterView(BuildContext context) => Navigator.push(
 void moveToStudentDashboardReplacement(BuildContext context) =>
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const StudentDashboardView()));
+
+void moveToUserDashboardReplacement(BuildContext context) async {
+  final _role = await currentUserRole();
+  if (_role == 'Tutor') {
+    moveToStudentDashboardReplacement(context);
+  } else if (_role == 'Admin') {
+    moveToAdminDashboardReplacement(context);
+  } else if (_role == 'Student') {
+    moveToStudentDashboardReplacement(context);
+  }
+}
 
 void moveToAdminDashboardReplacement(BuildContext context) =>
     Navigator.pushReplacement(context,
