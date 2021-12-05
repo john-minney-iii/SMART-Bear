@@ -40,10 +40,17 @@ dependencies:
   cupertino_icons: ^1.0.4
   url_launcher: ^6.0.13
   intl: ^0.17.0
+  flutter_launcher_icons: ^0.9.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/unco_bear_logo_icon.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -74,6 +81,7 @@ flutter:
     - assets/
     - assets/unco-bear-letter-logo.png
     - assets/unco-bear-logo.png
+    - assets/unco_bear_logo_icon.png
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
