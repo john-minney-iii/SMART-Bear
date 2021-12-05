@@ -15,7 +15,7 @@ Widget _chatRoomListTile(
     BuildContext context, QueryDocumentSnapshot<Object?> doc) {
   return Card(
       elevation: 0,
-      color: Colors.blue,
+      color: (doc['IsOpen']) ? Colors.blue : Colors.grey,
       child: ListTile(
         title:
             Text(doc['Subject'], style: const TextStyle(color: Colors.white)),
