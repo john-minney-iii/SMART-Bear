@@ -28,6 +28,11 @@ Future<void> signInWithEmailAndPassword(
   }
 }
 
+Future<String> currentUserRole() async {
+  final _user = await getUserAccount(_auth.currentUser!.uid);
+  return _user.role;
+}
+
 String? currentUserUid() =>
     (_auth.currentUser != null) ? _auth.currentUser!.uid : null;
 
