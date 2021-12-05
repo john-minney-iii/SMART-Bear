@@ -75,154 +75,156 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: globalAppBar(context, 'Ask A Question', true, true),
-      body: Column(
-        children: <Widget>[
-          Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                // Dropdown for Class Subjects
-                Padding(
-                  padding: const EdgeInsets.only(top: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: SizedBox(
-                          width: 170.0,
-                          child: DropdownButtonFormField<String>(
-                              value: _selectedSubject,
-                              items: _offeredSubjects.map((String value) {
-                                return DropdownMenuItem<String>(
-                                    value: value, child: Text(value));
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedCode = 0;
-                                  _selectedSubject = value!;
-                                  _dynamicClassCodeDropDown(value);
-                                });
-                              },
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Class Subject',
-                                  hintText:
-                                      'Enter your class subject (ie MATH)')),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  // Dropdown for Class Subjects
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: SizedBox(
+                            width: 170.0,
+                            child: DropdownButtonFormField<String>(
+                                value: _selectedSubject,
+                                items: _offeredSubjects.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                      value: value, child: Text(value));
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedCode = 0;
+                                    _selectedSubject = value!;
+                                    _dynamicClassCodeDropDown(value);
+                                  });
+                                },
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Class Subject',
+                                    hintText:
+                                        'Enter your class subject (ie MATH)')),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15.0),
-                        child: SizedBox(
-                          width: 170.0,
-                          child: DropdownButtonFormField<int>(
-                              value: _selectedCode,
-                              items: _offeredCodes.map((int value) {
-                                return DropdownMenuItem<int>(
-                                    value: value,
-                                    child: Text(value.toString()));
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedCode = value!;
-                                });
-                              },
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Class Code',
-                                  hintText: 'Enter your class code (ie 101)')),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 15.0),
+                          child: SizedBox(
+                            width: 170.0,
+                            child: DropdownButtonFormField<int>(
+                                value: _selectedCode,
+                                items: _offeredCodes.map((int value) {
+                                  return DropdownMenuItem<int>(
+                                      value: value,
+                                      child: Text(value.toString()));
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedCode = value!;
+                                  });
+                                },
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Class Code',
+                                    hintText: 'Enter your class code (ie 101)')),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 10.0),
-                  child: TextFormField(
-                    controller: _subjectController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Subject',
-                        hintText: 'Enter question subject'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a subject for your question';
-                      }
-                      return null;
-                    },
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 10.0),
+                    child: TextFormField(
+                      controller: _subjectController,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Subject',
+                          hintText: 'Enter question subject'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a subject for your question';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                ),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0, left: 15.0),
-                    child: Container(
-                        alignment: Alignment.centerLeft,
-                        child: const Text('Enter your question below:'))),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, bottom: 10.0),
-                  child: TextFormField(
-                    // TODO: add char limit
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    minLines: 5,
-                    controller: _questionController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Question',
-                        hintText: 'Enter your Question Here'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Your Question Can\'t be Empty';
-                      }
-                      return null;
-                    },
-                  ),
-                )
-              ],
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0, left: 15.0),
+                      child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: const Text('Enter your question below:'))),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 15.0, right: 15.0, bottom: 10.0),
+                    child: TextFormField(
+                      // TODO: add char limit
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      minLines: 5,
+                      controller: _questionController,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Question',
+                          hintText: 'Enter your Question Here'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Your Question Can\'t be Empty';
+                        }
+                        return null;
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          Padding(
-              padding: const EdgeInsets.only(bottom: 10.0, left: 15.0),
+            Padding(
+                padding: const EdgeInsets.only(bottom: 10.0, left: 15.0),
+                child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Text('Attach File (optional)'))),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: const Text('Attach File (optional)'))),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Container(
-              height: 100.0,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(5.0)),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.camera_alt_outlined),
-                      iconSize: 45.0,
-                      color: Colors.white,
-                      tooltip: 'Use Camera',
-                      onPressed: () {
-                        // TODO: allow user to take a picture
-                      },
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.image),
-                      iconSize: 45.0,
-                      color: Colors.white,
-                      tooltip: 'Choose From Gallery',
-                      onPressed: () {
-                        // TODO: allow user to choose a picture from their gallery
-                      },
-                    ),
-                  ]),
+                height: 100.0,
+                decoration: BoxDecoration(
+                    color: Colors.blue, borderRadius: BorderRadius.circular(5.0)),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      IconButton(
+                        icon: const Icon(Icons.camera_alt_outlined),
+                        iconSize: 45.0,
+                        color: Colors.white,
+                        tooltip: 'Use Camera',
+                        onPressed: () {
+                          // TODO: allow user to take a picture
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.image),
+                        iconSize: 45.0,
+                        color: Colors.white,
+                        tooltip: 'Choose From Gallery',
+                        onPressed: () {
+                          // TODO: allow user to choose a picture from their gallery
+                        },
+                      ),
+                    ]),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: blueCallToAction('Submit', _submitNewQuestion),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: blueCallToAction('Submit', _submitNewQuestion),
+            )
+          ],
+        ),
       ),
     );
   }

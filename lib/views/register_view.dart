@@ -28,113 +28,115 @@ class _RegisterViewState extends State<RegisterView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: globalAppBar(context, 'Register', true, false),
-      body: Column(
-        children: [
-          Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(height: 100),
-                Padding(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(height: 100),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15.0, vertical: 15.0),
+                      child: TextFormField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Email',
+                            hintText: 'Enter a valid email'),
+                        validator: (value) {
+                          // TODO: add email validation
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a valid email';
+                          }
+                          return null;
+                        },
+                      )),
+                  Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 15.0),
                     child: TextFormField(
-                      controller: _emailController,
+                      controller: _passwordController,
                       decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Email',
-                          hintText: 'Enter a valid email'),
+                          labelText: 'Password',
+                          hintText: 'Enter a secure password'),
+                      obscureText: true,
                       validator: (value) {
-                        // TODO: add email validation
+                        // TODO: password and password conf, password validation
                         if (value == null || value.isEmpty) {
-                          return 'Please enter a valid email';
+                          return 'Please enter a password';
                         }
                         return null;
                       },
-                    )),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 15.0),
-                  child: TextFormField(
-                    controller: _passwordController,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Password',
-                        hintText: 'Enter a secure password'),
-                    obscureText: true,
-                    validator: (value) {
-                      // TODO: password and password conf, password validation
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a password';
-                      }
-                      return null;
-                    },
+                    ),
                   ),
-                ),
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ListTile(
-                          title: Text(_student),
-                          leading: Radio(
-                              value: _student,
-                              groupValue: _role,
-                              onChanged: (value) {
-                                setState(() {
-                                  _role = value.toString();
-                                });
-                              },
-                              activeColor: Colors.blue)),
-                      ListTile(
-                          title: Text(_tutor),
-                          leading: Radio(
-                              value: _tutor,
-                              groupValue: _role,
-                              onChanged: (value) {
-                                setState(() {
-                                  _role = value.toString();
-                                });
-                              },
-                              activeColor: Colors.blue)),
-                      ListTile(
-                          title: Text(_admin),
-                          leading: Radio(
-                              value: _admin,
-                              groupValue: _role,
-                              onChanged: (value) {
-                                setState(() {
-                                  _role = value.toString();
-                                });
-                              },
-                              activeColor: Colors.blue))
-                    ],
-                  ),
-                )
-              ],
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ListTile(
+                            title: Text(_student),
+                            leading: Radio(
+                                value: _student,
+                                groupValue: _role,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _role = value.toString();
+                                  });
+                                },
+                                activeColor: Colors.blue)),
+                        ListTile(
+                            title: Text(_tutor),
+                            leading: Radio(
+                                value: _tutor,
+                                groupValue: _role,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _role = value.toString();
+                                  });
+                                },
+                                activeColor: Colors.blue)),
+                        ListTile(
+                            title: Text(_admin),
+                            leading: Radio(
+                                value: _admin,
+                                groupValue: _role,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _role = value.toString();
+                                  });
+                                },
+                                activeColor: Colors.blue))
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 50.0),
-          Center(child: blueCallToAction('Register', _register)),
-          const SizedBox(height: 50.0),
-          TextButton(
-              onPressed: () {
-                moveToLoginViewReplacement(context);
-              },
-              child: RichText(
-                  text: const TextSpan(children: [
-                TextSpan(
-                    text: 'Already a User? ',
-                    style: TextStyle(color: Colors.black)),
-                TextSpan(
-                    text: 'Login.',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline,
-                        fontWeight: FontWeight.bold))
-              ])))
-        ],
+            const SizedBox(height: 50.0),
+            Center(child: blueCallToAction('Register', _register)),
+            const SizedBox(height: 50.0),
+            TextButton(
+                onPressed: () {
+                  moveToLoginViewReplacement(context);
+                },
+                child: RichText(
+                    text: const TextSpan(children: [
+                  TextSpan(
+                      text: 'Already a User? ',
+                      style: TextStyle(color: Colors.black)),
+                  TextSpan(
+                      text: 'Login.',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.bold))
+                ])))
+          ],
+        ),
       ),
     );
   }

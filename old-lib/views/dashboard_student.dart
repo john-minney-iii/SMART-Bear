@@ -1,7 +1,8 @@
 // import 'package:flutter/material.dart';
 // import 'dart:async';
 // import 'package:url_launcher/url_launcher.dart';
-// import 'package:smart_bear_tutor/login_view.dart';
+//
+// import '../login_view.dart';
 //
 // class DashboardStudentPage extends StatefulWidget {
 //   const DashboardStudentPage({Key? key}) : super(key: key);
