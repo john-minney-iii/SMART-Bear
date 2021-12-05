@@ -47,41 +47,43 @@ class _ChatViewState extends State<ChatView> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: globalAppBar(context, 'Chat View', true, true),
-        body: Column(
-          children: [
-            Padding(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Sorry this chatroom is closed',
+                    style: TextStyle(
+                        color: (_chatRoomOpen) ? Colors.white : Colors.red),
+                  )),
+              Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Sorry this chatroom is closed',
-                  style: TextStyle(
-                      color: (_chatRoomOpen) ? Colors.white : Colors.red),
-                )),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 550.0,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: SingleChildScrollView(
-                  controller: _scrollController,
-                  child: StreamBuilder(
-                    stream: messagesStream(_chatRoom),
-                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (!snapshot.hasData) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return Column(children: generateMessageTiles(snapshot));
-                    },
+                child: Container(
+                  height: 550.0,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    child: StreamBuilder(
+                      stream: messagesStream(_chatRoom),
+                      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                        return Column(children: generateMessageTiles(snapshot));
+                      },
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: _messageComposer(),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: _messageComposer(),
+              )
+            ],
+          ),
         ));
   }
 

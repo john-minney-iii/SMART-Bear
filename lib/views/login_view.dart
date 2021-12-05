@@ -22,79 +22,81 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: globalAppBar(context, 'Login', false, false),
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              const SizedBox(height: 60.0),
-              Image.asset(
-                'assets/unco-bear-logo.png',
-                height: 125.0,
-                width: 125.0,
-              ),
-              const Text('SMART BEAR App',
-                  style: TextStyle(color: Colors.black, fontSize: 24.0)),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: TextFormField(
-                        controller: _emailController,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Email',
-                            hintText: 'Enter a valid email'),
-                        validator: (value) {
-                          // TODO: email validation
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a valid email';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: TextFormField(
-                        controller: _passwordController,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Password',
-                            hintText: 'Enter a secure password'),
-                        obscureText: true,
-                        validator: (value) {
-                          // TODO: password validation
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a password';
-                          }
-                          return null;
-                        },
-                      ),
-                    )
-                  ],
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                const SizedBox(height: 60.0),
+                Image.asset(
+                  'assets/unco-bear-logo.png',
+                  height: 125.0,
+                  width: 125.0,
                 ),
-              ),
-              blueCallToAction('Login', _login),
-              const SizedBox(height: 50.0),
-              TextButton(
-                onPressed: () {
-                  moveToRegisterView(context);
-                },
-                child: RichText(
-                    text: const TextSpan(children: [
-                  TextSpan(
-                      text: 'New User? ',
-                      style: TextStyle(color: Colors.black)),
-                  TextSpan(
-                      text: 'Create new Account.',
-                      style: TextStyle(
-                          color: Colors.blue,
-                          decoration: TextDecoration.underline,
-                          fontWeight: FontWeight.bold))
-                ])),
-              )
-            ],
+                const Text('SMART BEAR App',
+                    style: TextStyle(color: Colors.black, fontSize: 24.0)),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: TextFormField(
+                          controller: _emailController,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Email',
+                              hintText: 'Enter a valid email'),
+                          validator: (value) {
+                            // TODO: email validation
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a valid email';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: TextFormField(
+                          controller: _passwordController,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Password',
+                              hintText: 'Enter a secure password'),
+                          obscureText: true,
+                          validator: (value) {
+                            // TODO: password validation
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a password';
+                            }
+                            return null;
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                blueCallToAction('Login', _login),
+                const SizedBox(height: 50.0),
+                TextButton(
+                  onPressed: () {
+                    moveToRegisterView(context);
+                  },
+                  child: RichText(
+                      text: const TextSpan(children: [
+                    TextSpan(
+                        text: 'New User? ',
+                        style: TextStyle(color: Colors.black)),
+                    TextSpan(
+                        text: 'Create new Account.',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.bold))
+                  ])),
+                )
+              ],
+            ),
           ),
         ));
   }
