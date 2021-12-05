@@ -19,11 +19,13 @@ class ChatView extends StatefulWidget {
 
 class _ChatViewState extends State<ChatView> {
   late ChatRoom _chatRoom;
+  late bool _chatRoomOpen;
 
   @override
   void initState() {
     super.initState();
     _chatRoom = widget.chatRoom;
+    _chatRoomOpen = _chatRoom.isOpen;
   }
 
   @override
@@ -83,12 +85,45 @@ class _ChatViewState extends State<ChatView> {
   }
 
   void _sendMessage(String message) {
-    final _authId = currentUserUid();
-    final _message = Message(
-        authorId: _authId!,
-        chatRoomId: _chatRoom.id,
-        message: message,
-        timestamp: DateTime.now());
-    createMessage(_message);
+    if (_chatRoomOpen) {
+      final _authId = currentUserUid();
+      final _message = Message(
+          authorId: _authId!,
+          chatRoomId: _chatRoom.id,
+          message: message,
+          timestamp: DateTime.now());
+      createMessage(_message);
+    } else {
+      _showChatRoomClosedAlertDialog();
+    }
   }
+
+  void _showChatRoomClosedAlertDialog() {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("This ChatRoom is Closed"),
+      content: const Text(
+          "Sorry. You can't send messages to closed Chat Rooms."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
 }
