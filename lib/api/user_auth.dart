@@ -10,21 +10,26 @@ FirebaseAuth getCurrentAuth() => _auth;
 
 Future<void> signOutCurrentUser() async => await _auth.signOut();
 
-Future<void> signInWithEmailAndPassword(
+Future<bool> signInWithEmailAndPassword(
     BuildContext context, String email, String password) async {
-  final User? user =
-      (await _auth.signInWithEmailAndPassword(email: email, password: password))
-          .user;
+  try {
+    final User? user = (await _auth.signInWithEmailAndPassword(
+            email: email, password: password))
+        .user;
+    if (user != null) {
+      final _userAccount = await getUserAccount(user.uid);
 
-  if (user != null) {
-    final _userAccount = await getUserAccount(user.uid);
-    if (_userAccount.role == 'Student' || _userAccount.role == 'Tutor') {
-      moveToStudentDashboardReplacement(context);
-    } else if (_userAccount.role == 'Admin') {
-      moveToAdminDashboardReplacement(context);
+      if (_userAccount.role == 'Student' || _userAccount.role == 'Tutor') {
+        moveToStudentDashboardReplacement(context);
+      } else if (_userAccount.role == 'Admin') {
+        moveToAdminDashboardReplacement(context);
+      }
+      return true;
+    } else {
+      return false;
     }
-  } else {
-    return;
+  } catch (e) {
+    return false;
   }
 }
 
