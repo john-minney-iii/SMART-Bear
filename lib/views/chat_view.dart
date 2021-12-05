@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,8 @@ import 'package:smart_bear_tutor/models/chatroom.dart';
 import 'package:smart_bear_tutor/models/message.dart';
 import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
 import 'package:smart_bear_tutor/widgets/messages_list.dart';
+
+// TODO: add an auto scroll to the msgs
 
 class ChatView extends StatefulWidget {
   const ChatView({Key? key, required this.chatRoom}) : super(key: key);
@@ -20,6 +23,9 @@ class ChatView extends StatefulWidget {
 class _ChatViewState extends State<ChatView> {
   late ChatRoom _chatRoom;
   late bool _chatRoomOpen;
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _messageController = TextEditingController();
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -30,66 +36,89 @@ class _ChatViewState extends State<ChatView> {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    final TextEditingController _messageController = TextEditingController();
-
+    // After 1 second, scroll to the bottom of the SingleScrollChild
+    Timer(
+        Duration(seconds: 1),
+        () => _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: Duration(seconds: 1),
+            curve: Curves.fastOutSlowIn));
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: globalAppBar(context, 'Chat View', true, true),
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Sorry this chatroom is closed',
-                style: TextStyle(
-                  color: (_chatRoomOpen) ? Colors.white : Colors.red
-                ),
-              )
-            ),
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Sorry this chatroom is closed',
+                  style: TextStyle(
+                      color: (_chatRoomOpen) ? Colors.white : Colors.red),
+                )),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: StreamBuilder(
-                stream: messagesStream(_chatRoom),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  return Column(children: generateMessageTiles(snapshot));
-                },
+              child: Container(
+                height: 550.0,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: SingleChildScrollView(
+                  controller: _scrollController,
+                  child: StreamBuilder(
+                    stream: messagesStream(_chatRoom),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      return Column(children: generateMessageTiles(snapshot));
+                    },
+                  ),
+                ),
               ),
             ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 10.0),
-                      child: TextFormField(
-                          controller: _messageController,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder()),
-                          validator: (value) {
-                            // TODO: any validation for message (char count)
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a message to send';
-                            }
-                            return null;
-                          }))
-                ],
-              ),
-            ),
-            TextButton(
-              child: const Text('Send Message'),
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  _sendMessage(_messageController.text);
-                  _messageController.text = '';
-                }
-              },
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: _messageComposer(),
             )
           ],
+        ));
+  }
+
+  Widget _messageComposer() {
+    return Container(
+        height: 70.0,
+        color: Colors.white,
+        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        child: Form(
+          key: _formKey,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: TextFormField(
+                    controller: _messageController,
+                    decoration:
+                        const InputDecoration(border: OutlineInputBorder()),
+                    validator: (value) {
+                      // TODO: any validation for message (char count)
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a message to send';
+                      }
+                      return null;
+                    }),
+              ),
+              IconButton(
+                icon: Icon(Icons.send),
+                color: Colors.blue,
+                iconSize: 25.0,
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _sendMessage(_messageController.text);
+                    _messageController.text = '';
+                  }
+                },
+              )
+            ],
+          ),
         ));
   }
 
@@ -119,8 +148,8 @@ class _ChatViewState extends State<ChatView> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: const Text("This ChatRoom is Closed"),
-      content: const Text(
-          "Sorry. You can't send messages to closed Chat Rooms."),
+      content:
+          const Text("Sorry. You can't send messages to closed Chat Rooms."),
       actions: [
         okButton,
       ],
@@ -134,5 +163,4 @@ class _ChatViewState extends State<ChatView> {
       },
     );
   }
-
 }
