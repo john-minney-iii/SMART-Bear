@@ -61,7 +61,8 @@ Future<void> assignQuestionToTutor(Question question, UserAccount user) async {
   ChatRoom _chatRoom = ChatRoom(
       id: question.authorId + '_' + user.id,
       userIds: [question.authorId, user.id],
-      isOpen: true);
+      isOpen: true,
+      subject: question.classCode + ' - ' + question.subject);
   await createChatRoom(_chatRoom);
   await _questionCollectionRef
       .doc(_id)

@@ -17,13 +17,15 @@ Widget _chatRoomListTile(
       elevation: 0,
       color: Colors.blue,
       child: ListTile(
-        title: Text(doc['Id'], style: const TextStyle(color: Colors.white)),
+        title:
+            Text(doc['Subject'], style: const TextStyle(color: Colors.white)),
         trailing: const Icon(Icons.arrow_right),
         onTap: () {
           ChatRoom _chatRoom = ChatRoom(
               id: doc['Id'],
               userIds: List.from(doc['Users']),
-              isOpen: doc['IsOpen']);
+              isOpen: doc['IsOpen'],
+              subject: doc['Subject']);
           moveToChatView(context, _chatRoom);
         },
       ));
