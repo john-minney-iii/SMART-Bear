@@ -18,6 +18,8 @@ class _RegisterViewState extends State<RegisterView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConfirmationController =
+      TextEditingController();
   final String _student = 'Student';
 
   @override
@@ -66,6 +68,28 @@ class _RegisterViewState extends State<RegisterView> {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a password';
                         }
+                        if (value != _passwordConfirmationController.text) {
+                          return 'Please make sure your passwords match';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 15.0),
+                    child: TextFormField(
+                      controller: _passwordConfirmationController,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Re-Enter Password',
+                          hintText: 'Re-Enter Password to Confirm'),
+                      obscureText: true,
+                      validator: (value) {
+                        // TODO: password and password conf, password validation
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password again';
+                        }
                         return null;
                       },
                     ),
@@ -99,15 +123,17 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   void _register() async {
-    final User? user = (await getCurrentAuth().createUserWithEmailAndPassword(
-            email: _emailController.text, password: _passwordController.text))
-        .user;
-    if (user != null) {
-      setState(() {});
-      createUser(user, _student);
-      _showRegisterAlertDialog();
-    } else {
-      setState(() {});
+    if (_formKey.currentState!.validate()) {
+      final User? user = (await getCurrentAuth().createUserWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text))
+          .user;
+      if (user != null) {
+        setState(() {});
+        createUser(user, _student);
+        _showRegisterAlertDialog();
+      } else {
+        setState(() {});
+      }
     }
   }
 
