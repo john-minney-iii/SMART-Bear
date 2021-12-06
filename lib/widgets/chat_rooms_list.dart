@@ -20,8 +20,7 @@ Widget _chatRoomListTile(
       elevation: 0,
       color: (doc['IsOpen']) ? _boxColor : Colors.grey,
       child: ListTile(
-        title:
-            Text(doc['Subject'], style: TextStyle(color: _textIconColor)),
+        title: Text(doc['Subject'], style: TextStyle(color: _textIconColor)),
         trailing: Icon(Icons.arrow_right, color: _textIconColor),
         onTap: () {
           ChatRoom _chatRoom = ChatRoom(

@@ -14,8 +14,7 @@ Widget _userListTile(BuildContext context, QueryDocumentSnapshot<Object?> doc) {
       elevation: 0,
       color: _boxColor,
       child: ListTile(
-          title:
-              Text(doc['email'], style: TextStyle(color: _textIconColor)),
+          title: Text(doc['email'], style: TextStyle(color: _textIconColor)),
           trailing: Icon(Icons.edit_outlined, color: _textIconColor),
           onTap: () async {
             moveToEditAccountView(context, doc);
