@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
-import 'dart:async';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:smart_bear_tutor/views/student_faq_view.dart';
 import 'package:smart_bear_tutor/views/ask_a_question_view.dart';
