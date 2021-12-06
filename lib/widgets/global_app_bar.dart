@@ -20,7 +20,7 @@ AppBar globalAppBar(
                 },
                 child: Text('Logout',
                     style: TextStyle(
-                        color: (includeLogout) ? Colors.white : Colors.blue))),
+                        color: (includeLogout) ? Colors.white : Color(0xff173f5f)))),
           ))
     ],
   );

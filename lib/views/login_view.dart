@@ -102,7 +102,7 @@ class _LoginViewState extends State<LoginView> {
                             TextSpan(
                                 text: 'Create new Account.',
                                 style: TextStyle(
-                                    color: Colors.blue,
+                                    color: const Color(0xff173f5f),
                                     decoration: TextDecoration.underline,
                                     fontWeight: FontWeight.bold))
                           ])),

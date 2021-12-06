@@ -73,15 +73,6 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                       )),
-                ),
-                Center(
-                  child: TextButton(
-                      onPressed: () async {
-                        await signOutCurrentUser();
-                        moveToLoginViewReplacement(context);
-                      },
-                      child:
-                          Text('Logout', style: TextStyle(color: Colors.black))),
                 )
               ]),
             ),
@@ -313,6 +304,27 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                     color: _textIconColor
                   ),
                   label: Text('After Hours Support', style: TextStyle(color: _textIconColor)),
+                  color: _boxColor,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                width: MediaQuery.of(context).size.width * 0.90,
+                height: MediaQuery.of(context).size.width * 0.15,
+                decoration: BoxDecoration(
+                  border: Border.all(color: _borderColor, width: _borderWidth),
+                ),
+                child: RaisedButton.icon(
+                  onPressed: () async {
+                    await signOutCurrentUser();
+                    moveToLoginViewReplacement(context);
+                  },
+                  icon: Icon(
+                      IconData(0xe3b3, fontFamily: 'MaterialIcons'),
+                      size: 50.0,
+                      color: _textIconColor
+                  ),
+                  label: Text('Logout', style: TextStyle(color: _textIconColor)),
                   color: _boxColor,
                 ),
               ),
