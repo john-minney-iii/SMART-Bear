@@ -19,9 +19,6 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final String _student = 'Student';
-  final String _admin = 'Admin';
-  final String _tutor = 'Tutor';
-  String _role = 'Student'; // Default to student
 
   @override
   Widget build(BuildContext context) {
@@ -72,46 +69,6 @@ class _RegisterViewState extends State<RegisterView> {
                         return null;
                       },
                     ),
-                  ),
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        ListTile(
-                            title: Text(_student),
-                            leading: Radio(
-                                value: _student,
-                                groupValue: _role,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _role = value.toString();
-                                  });
-                                },
-                                activeColor: Colors.blue)),
-                        ListTile(
-                            title: Text(_tutor),
-                            leading: Radio(
-                                value: _tutor,
-                                groupValue: _role,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _role = value.toString();
-                                  });
-                                },
-                                activeColor: Colors.blue)),
-                        ListTile(
-                            title: Text(_admin),
-                            leading: Radio(
-                                value: _admin,
-                                groupValue: _role,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _role = value.toString();
-                                  });
-                                },
-                                activeColor: Colors.blue))
-                      ],
-                    ),
                   )
                 ],
               ),
@@ -147,15 +104,40 @@ class _RegisterViewState extends State<RegisterView> {
         .user;
     if (user != null) {
       setState(() {});
-      createUser(user, _role);
-      if (_role == _student || _role == _tutor) {
-        moveToStudentDashboardReplacement(context);
-      } else if (_role == _admin) {
-        moveToAdminDashboardReplacement(context);
-      }
+      createUser(user, _student);
+      _showRegisterAlertDialog();
     } else {
       setState(() {});
     }
+  }
+
+  void _showRegisterAlertDialog() {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+        moveToStudentDashboardReplacement(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("You have been registered!"),
+      content: const Text(
+          "You have been registered as a student. If you are a tutor or a staff member, speak with an admin and they will be able to upgrade your role."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   @override
