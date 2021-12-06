@@ -19,12 +19,7 @@ class _StudentFAQViewState extends State<StudentFAQView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            moveToStudentDashboardReplacement(context);
-          },
-        ),
+        automaticallyImplyLeading: true,
         title: const Text('FAQ'),
         backgroundColor: const Color(0xff173f5f),
       ),
