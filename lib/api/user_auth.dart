@@ -19,10 +19,12 @@ Future<bool> signInWithEmailAndPassword(
     if (user != null) {
       final _userAccount = await getUserAccount(user.uid);
 
-      if (_userAccount.role == 'Student' || _userAccount.role == 'Tutor') {
+      if (_userAccount.role == 'Student') {
         moveToStudentDashboardReplacement(context);
       } else if (_userAccount.role == 'Admin') {
         moveToAdminDashboardReplacement(context);
+      } else if (_userAccount.role == 'Tutor') {
+        moveToTutorDashboardReplacement(context);
       }
       return true;
     } else {

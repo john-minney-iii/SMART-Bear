@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:smart_bear_tutor/views/dashboards/dashboard_tutor.dart';
+import 'package:smart_bear_tutor/views/dashboards/tutor_dashboard.dart';
 import 'package:smart_bear_tutor/views/login_view.dart';
 
 void main() async {
@@ -24,7 +26,7 @@ class SmartBearApp extends StatelessWidget {
           // Once complete, show the application
           if (snapshot.connectionState == ConnectionState.done) {
             return const MaterialApp(
-                debugShowCheckedModeBanner: true, home: LoginView());
+                debugShowCheckedModeBanner: true, home: TutorDashboard());
           }
           // Show a Default Loading Spinner
           return const Center(child: CircularProgressIndicator());

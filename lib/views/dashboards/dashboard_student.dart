@@ -87,7 +87,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                   margin: EdgeInsets.fromLTRB(25.0, 10.0, 0.0, 0.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text('Dashboard',
+                    child: Text('Student Dashboard',
                         style: TextStyle(
                           fontSize: 25.0,
                           fontWeight: FontWeight.bold,

@@ -13,6 +13,7 @@ import 'package:smart_bear_tutor/views/dashboards/dashboard_student.dart';
 import 'package:smart_bear_tutor/views/dashboards/admin_dashboard_view.dart';
 import 'package:smart_bear_tutor/views/admin_views/admin_faq_view.dart';
 import 'package:smart_bear_tutor/views/admin_views/manage_questions_view.dart';
+import 'package:smart_bear_tutor/views/dashboards/tutor_dashboard.dart';
 import 'package:smart_bear_tutor/views/login_view.dart';
 import 'package:smart_bear_tutor/views/admin_views/question_view.dart';
 import 'package:smart_bear_tutor/views/register_view.dart';
@@ -30,10 +31,14 @@ void moveToStudentDashboardReplacement(BuildContext context) =>
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const DashboardStudentPage()));
 
+void moveToTutorDashboardReplacement(BuildContext context) =>
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const TutorDashboard()));
+
 void moveToUserDashboardReplacement(BuildContext context) async {
   final _role = await currentUserRole();
   if (_role == 'Tutor') {
-    moveToStudentDashboardReplacement(context);
+    moveToTutorDashboardReplacement(context);
   } else if (_role == 'Admin') {
     moveToAdminDashboardReplacement(context);
   } else if (_role == 'Student') {
