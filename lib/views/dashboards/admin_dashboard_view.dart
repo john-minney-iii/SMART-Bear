@@ -143,31 +143,6 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                     ),
                     child: RaisedButton(
                       onPressed: () {
-                        _manageTutorAvailability();
-                      },
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text('Manage Tutor Availability',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: _textIconColor)),
-                            Icon(Icons.event_available_rounded,
-                                size: 50.0, color: _textIconColor),
-                          ]),
-                      color: _boxColor,
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.45,
-                    height: MediaQuery.of(context).size.width * 0.25,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: _borderColor, width: _borderWidth),
-                    ),
-                    child: RaisedButton(
-                      onPressed: () {
                         _manageUsersOnPressed();
                       },
                       child: Column(

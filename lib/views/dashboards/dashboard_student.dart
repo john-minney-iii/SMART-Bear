@@ -147,7 +147,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                         child: RaisedButton(
                           onPressed: () async {
                             final url =
-                                'https://www.unco.edu/tutoring/course-offerings/individual-tutoring-courses.aspx';
+                                'https://www.unco.edu/tutoring/pdf/night-time-drop-in-course-offerings.pdf';
                             if (await canLaunch(url)) {
                               await launch(
                                 url,
