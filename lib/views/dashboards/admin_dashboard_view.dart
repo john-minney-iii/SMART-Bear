@@ -24,36 +24,10 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(30.0),
-            child: AppBar(
-              automaticallyImplyLeading: false,
-              title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Want to become a tutor or SI leader?  ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15.0,
-                      ),
-                    ),
-                    InkWell(
-                        child: Text('Click Here',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15.0,
-                              decoration: TextDecoration.underline,
-                            )),
-                        onTap: () => launch(
-                            'https://www.unco.edu/tutoring/resources-forms/become-a-peer-tutor-or-si-leader.aspx')),
-                  ]),
-              backgroundColor: Colors.amber,
-            )),
         body: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(top: 50.0),
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
