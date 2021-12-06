@@ -255,3 +255,4 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
 }
 
 
+//Made some name changes
