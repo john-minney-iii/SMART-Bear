@@ -39,10 +39,9 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.20,
                   height: MediaQuery.of(context).size.width * 0.10,
                   margin: EdgeInsets.fromLTRB(20.0, 10.0, 30.0, 10.0),
-                  child: Text('Welcome, Student!',
+                  child: Text('Welcome, Admin!',
                       style: TextStyle(
                         letterSpacing: 1.0,
                         fontSize: 20.0,

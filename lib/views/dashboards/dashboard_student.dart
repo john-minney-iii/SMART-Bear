@@ -65,7 +65,6 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.20,
                       height: MediaQuery.of(context).size.width * 0.10,
                       margin: EdgeInsets.fromLTRB(20.0, 10.0, 30.0, 10.0),
                       child: Text('Welcome, Student!',
