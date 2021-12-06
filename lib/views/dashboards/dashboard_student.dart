@@ -20,6 +20,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(30.0),
             child: AppBar(
+              automaticallyImplyLeading: false,
               title: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

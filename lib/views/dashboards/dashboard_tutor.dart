@@ -13,7 +13,7 @@ class _DashboardTutorPageState extends State<DashboardTutorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
+      body: Column(
       children: <Widget>[
         Column(children: <Widget>[]),
         Row(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[
