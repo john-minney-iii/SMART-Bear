@@ -2,10 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
-import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../ask_a_question_view.dart';
 import '../student_faq_view.dart';
 
 class AdminDashboardView extends StatefulWidget {

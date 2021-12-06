@@ -8,20 +8,6 @@ AppBar globalAppBar(
   return AppBar(
     title: Text(title),
     backgroundColor: const Color(0xff173f5f),
-    automaticallyImplyLeading: (applyLeading) ? true : false,
-    actions: <Widget>[
-      Padding(
-          padding: const EdgeInsets.only(left: 5),
-          child: Center(
-            child: TextButton(
-                onPressed: () async {
-                  await signOutCurrentUser();
-                  moveToLoginViewReplacement(context);
-                },
-                child: Text('Logout',
-                    style: TextStyle(
-                        color: (includeLogout) ? Colors.white : Color(0xff173f5f)))),
-          ))
-    ],
+    automaticallyImplyLeading: (applyLeading) ? true : false
   );
 }
