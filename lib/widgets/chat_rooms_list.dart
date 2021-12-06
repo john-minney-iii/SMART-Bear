@@ -13,13 +13,16 @@ generateChatRoomTiles(
 
 Widget _chatRoomListTile(
     BuildContext context, QueryDocumentSnapshot<Object?> doc) {
+  Color _boxColor = const Color(0xff173f5f);
+  Color _textIconColor = Colors.white;
+
   return Card(
       elevation: 0,
-      color: (doc['IsOpen']) ? Colors.blue : Colors.grey,
+      color: (doc['IsOpen']) ? _boxColor : Colors.grey,
       child: ListTile(
         title:
-            Text(doc['Subject'], style: const TextStyle(color: Colors.white)),
-        trailing: const Icon(Icons.arrow_right),
+            Text(doc['Subject'], style: TextStyle(color: _textIconColor)),
+        trailing: Icon(Icons.arrow_right, color: _textIconColor),
         onTap: () {
           ChatRoom _chatRoom = ChatRoom(
               id: doc['Id'],
