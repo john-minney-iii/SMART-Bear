@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../ask_a_question_view.dart';
+import '../student_faq_view.dart';
 
 class AdminDashboardView extends StatefulWidget {
   const AdminDashboardView({Key? key}) : super(key: key);
@@ -11,58 +16,254 @@ class AdminDashboardView extends StatefulWidget {
 }
 
 class _AdminDashboardViewState extends State<AdminDashboardView> {
+  Color _boxColor = const Color(0xff173f5f);
+  Color _borderColor = const Color(0xFFFFB300);
+  Color _textIconColor = Colors.white;
+  final _borderWidth = 3.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: globalAppBar(context, 'Admin Dashboard', false, true),
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(30.0),
+            child: AppBar(
+              automaticallyImplyLeading: false,
+              title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Want to become a tutor or SI leader?  ',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    InkWell(
+                        child: Text('Click Here',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15.0,
+                              decoration: TextDecoration.underline,
+                            )),
+                        onTap: () => launch(
+                            'https://www.unco.edu/tutoring/resources-forms/become-a-peer-tutor-or-si-leader.aspx')),
+                  ]),
+              backgroundColor: Colors.amber,
+            )),
         body: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: TextButton(
-                child: const Text('Manage Questions'),
-                onPressed: _manageQuestionsOnPressed,
-              ),
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.fromLTRB(20.0, 10.0, 30.0, 10.0),
+                      child: Image(
+                        image: AssetImage('assets/unco-bear-letter-logo.png'),
+                        //width: 80,
+                        //height: 80,
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        height: MediaQuery.of(context).size.width * 0.15,
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.20,
+                      height: MediaQuery.of(context).size.width * 0.10,
+                      margin: EdgeInsets.fromLTRB(20.0, 10.0, 30.0, 10.0),
+                      child: Text('Welcome, Student!',
+                          style: TextStyle(
+                            letterSpacing: 1.0,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    )
+                  ]),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: TextButton(
-                child: const Text('Manage Tutor Availability'),
-                onPressed: _manageTutorAvailability,
+            Column(children: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
+                child: Divider(color: Colors.black),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: TextButton(
-                child: const Text('Manage Users'),
-                onPressed: _manageUsersOnPressed,
+            ]),
+            Column(children: <Widget>[
+              Container(
+                  margin: EdgeInsets.fromLTRB(25.0, 10.0, 0.0, 0.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Admin Dashboard',
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.0,
+                        )),
+                  )),
+            ]),
+            Column(children: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        height: MediaQuery.of(context).size.width * 0.25,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: _borderColor, width: _borderWidth),
+                        ),
+                        child: RaisedButton(
+                          onPressed: () {
+                            _manageQuestionsOnPressed();
+                          },
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text('Manage Questions',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: _textIconColor)),
+                                Icon(Icons.help,
+                                    size: 50.0, color: _textIconColor),
+                              ]),
+                          color: _boxColor,
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        height: MediaQuery.of(context).size.width * 0.25,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: _borderColor, width: _borderWidth),
+                        ),
+                        child: RaisedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => StudentFAQView()),
+                            );
+                          },
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text('FAQ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: _textIconColor)),
+                                Icon(Icons.mail,
+                                    size: 50.0, color: _textIconColor),
+                              ]),
+                          color: _boxColor,
+                        ),
+                      ),
+                    ]),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: TextButton(
-                child: const Text('Manage FAQ'),
-                onPressed: _manageFaqOnPressed,
+            ]),
+            Column(children: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        height: MediaQuery.of(context).size.width * 0.25,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: _borderColor, width: _borderWidth),
+                        ),
+                        child: RaisedButton(
+                          onPressed: () {
+                            _manageTutorAvailability();
+                          },
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text('Manage Tutor Availability',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: _textIconColor)),
+                                Icon(Icons.event_available_rounded,
+                                    size: 50.0, color: _textIconColor),
+                              ]),
+                          color: _boxColor,
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        height: MediaQuery.of(context).size.width * 0.25,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: _borderColor, width: _borderWidth),
+                        ),
+                        child: RaisedButton(
+                          onPressed: () {
+                            _manageUsersOnPressed();
+                          },
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text('Manage Users',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: _textIconColor)),
+                                Icon(Icons.supervised_user_circle_sharp,
+                                    size: 50.0, color: _textIconColor),
+                              ]),
+                          color: _boxColor,
+                        ),
+                      ),
+                    ]),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: TextButton(
-                child: const Text('Send Notification'),
-                onPressed: _sendNotificationsOnPressed,
+            ]),
+            Column(children: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
+                child: Divider(color: Colors.black),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: TextButton(
-                child: const Text('Settings'),
-                onPressed: _settingsOnPressed,
+            ]),
+            Column(children: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                width: MediaQuery.of(context).size.width * 0.90,
+                height: MediaQuery.of(context).size.width * 0.15,
+                decoration: BoxDecoration(
+                  border: Border.all(color: _borderColor, width: _borderWidth),
+                ),
+                child: RaisedButton.icon(
+                  onPressed: () async {
+                    await signOutCurrentUser();
+                    moveToLoginViewReplacement(context);
+                  },
+                  icon: Icon(IconData(0xe3b3, fontFamily: 'MaterialIcons'),
+                      size: 50.0, color: _textIconColor),
+                  label:
+                      Text('Logout', style: TextStyle(color: _textIconColor)),
+                  color: _boxColor,
+                ),
               ),
-            )
+            ]),
           ],
         ));
   }
+
+  //           Padding(
+  //             padding: const EdgeInsets.symmetric(vertical: 8.0),
+  //             child: TextButton(
+  //               child: const Text('Send Notification'),
+  //               onPressed: _sendNotificationsOnPressed,
+  //             ),
+  //           ),
+
+  //           Padding(
+  //             padding: const EdgeInsets.symmetric(vertical: 8.0),
+  //             child: TextButton(
+  //               child: const Text('Settings'),
+  //               onPressed: _settingsOnPressed,
+  //             ),
+  //           )
 
   void _manageQuestionsOnPressed() {
     // TODO: whatever else is needed ig
