@@ -9,7 +9,7 @@ import 'package:smart_bear_tutor/views/admin_views/user_management/edit_account_
 import 'package:smart_bear_tutor/views/ask_a_question_view.dart';
 import 'package:smart_bear_tutor/views/chat_room_list_view.dart';
 import 'package:smart_bear_tutor/views/chat_view.dart';
-import 'package:smart_bear_tutor/views/dashboard_student.dart';
+import 'package:smart_bear_tutor/views/dashboards/dashboard_student.dart';
 import 'package:smart_bear_tutor/views/dashboards/admin_dashboard_view.dart';
 import 'package:smart_bear_tutor/views/admin_views/admin_faq_view.dart';
 import 'package:smart_bear_tutor/views/admin_views/manage_questions_view.dart';
