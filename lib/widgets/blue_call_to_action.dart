@@ -6,7 +6,8 @@ Widget blueCallToAction(String text, function) {
       height: 50.0,
       width: 250.0,
       decoration: BoxDecoration(
-          color: const Color(0xff173f5f), borderRadius: BorderRadius.circular(20.0)),
+          color: const Color(0xff173f5f),
+          borderRadius: BorderRadius.circular(20.0)),
       child: TextButton(
         child: Text(
           text,

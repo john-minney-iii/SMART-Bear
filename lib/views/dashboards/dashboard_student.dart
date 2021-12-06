@@ -51,29 +51,31 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
-              child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[
-                Container(
-                  margin: EdgeInsets.fromLTRB(20.0, 10.0, 30.0, 10.0),
-                  child: Image(
-                    image: AssetImage('assets/unco-bear-letter-logo.png'),
-                    //width: 80,
-                    //height: 80,
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    height: MediaQuery.of(context).size.width * 0.15,
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.20,
-                  height: MediaQuery.of(context).size.width * 0.10,
-                  margin: EdgeInsets.fromLTRB(20.0, 10.0, 30.0, 10.0),
-                  child: Text('Welcome, Student!',
-                      style: TextStyle(
-                        letterSpacing: 1.0,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      )),
-                )
-              ]),
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.fromLTRB(20.0, 10.0, 30.0, 10.0),
+                      child: Image(
+                        image: AssetImage('assets/unco-bear-letter-logo.png'),
+                        //width: 80,
+                        //height: 80,
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        height: MediaQuery.of(context).size.width * 0.15,
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.20,
+                      height: MediaQuery.of(context).size.width * 0.10,
+                      margin: EdgeInsets.fromLTRB(20.0, 10.0, 30.0, 10.0),
+                      child: Text('Welcome, Student!',
+                          style: TextStyle(
+                            letterSpacing: 1.0,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    )
+                  ]),
             ),
             Column(children: <Widget>[
               Container(
@@ -104,8 +106,8 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                         width: MediaQuery.of(context).size.width * 0.45,
                         height: MediaQuery.of(context).size.width * 0.25,
                         decoration: BoxDecoration(
-                          border:
-                              Border.all(color: _borderColor, width: _borderWidth),
+                          border: Border.all(
+                              color: _borderColor, width: _borderWidth),
                         ),
                         child: RaisedButton(
                           onPressed: () async {
@@ -125,9 +127,8 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                               children: <Widget>[
                                 Text('Appointments',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: _textIconColor
-                                    )),
+                                        fontWeight: FontWeight.bold,
+                                        color: _textIconColor)),
                                 Icon(
                                   Icons.event,
                                   size: 50.0,
@@ -141,8 +142,8 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                         width: MediaQuery.of(context).size.width * 0.45,
                         height: MediaQuery.of(context).size.width * 0.25,
                         decoration: BoxDecoration(
-                          border:
-                              Border.all(color: _borderColor, width: _borderWidth),
+                          border: Border.all(
+                              color: _borderColor, width: _borderWidth),
                         ),
                         child: RaisedButton(
                           onPressed: () async {
@@ -162,14 +163,10 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                               children: <Widget>[
                                 Text('Tutor Availability',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: _textIconColor
-                                    )),
-                                Icon(
-                                  Icons.emoji_people,
-                                  size: 50.0,
-                                  color: _textIconColor
-                                ),
+                                        fontWeight: FontWeight.bold,
+                                        color: _textIconColor)),
+                                Icon(Icons.emoji_people,
+                                    size: 50.0, color: _textIconColor),
                               ]),
                           color: _boxColor,
                         ),
@@ -187,8 +184,8 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                         width: MediaQuery.of(context).size.width * 0.45,
                         height: MediaQuery.of(context).size.width * 0.25,
                         decoration: BoxDecoration(
-                          border:
-                              Border.all(color: _borderColor, width: _borderWidth),
+                          border: Border.all(
+                              color: _borderColor, width: _borderWidth),
                         ),
                         child: RaisedButton(
                           onPressed: () {
@@ -203,14 +200,10 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                               children: <Widget>[
                                 Text('Ask A Question',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: _textIconColor
-                                    )),
-                                Icon(
-                                  Icons.help,
-                                  size: 50.0,
-                                  color: _textIconColor
-                                ),
+                                        fontWeight: FontWeight.bold,
+                                        color: _textIconColor)),
+                                Icon(Icons.help,
+                                    size: 50.0, color: _textIconColor),
                               ]),
                           color: _boxColor,
                         ),
@@ -219,8 +212,8 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                         width: MediaQuery.of(context).size.width * 0.45,
                         height: MediaQuery.of(context).size.width * 0.25,
                         decoration: BoxDecoration(
-                          border:
-                              Border.all(color: _borderColor, width: _borderWidth),
+                          border: Border.all(
+                              color: _borderColor, width: _borderWidth),
                         ),
                         child: RaisedButton(
                           onPressed: () {
@@ -235,14 +228,10 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                               children: <Widget>[
                                 Text('FAQ',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: _textIconColor
-                                    )),
-                                Icon(
-                                  Icons.mail,
-                                  size: 50.0,
-                                  color: _textIconColor
-                                ),
+                                        fontWeight: FontWeight.bold,
+                                        color: _textIconColor)),
+                                Icon(Icons.mail,
+                                    size: 50.0, color: _textIconColor),
                               ]),
                           color: _boxColor,
                         ),
@@ -268,12 +257,10 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                   onPressed: () async {
                     moveToChatRoomListView(context);
                   },
-                  icon: Icon(
-                    Icons.drafts_outlined,
-                    size: 50.0,
-                    color: _textIconColor
-                  ),
-                  label: Text('My Conversations', style: TextStyle(color: _textIconColor)),
+                  icon: Icon(Icons.drafts_outlined,
+                      size: 50.0, color: _textIconColor),
+                  label: Text('My Conversations',
+                      style: TextStyle(color: _textIconColor)),
                   color: _boxColor,
                 ),
               ),
@@ -297,12 +284,10 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                       throw 'Could not launch $url';
                     }
                   },
-                  icon: Icon(
-                    Icons.nights_stay,
-                    size: 50.0,
-                    color: _textIconColor
-                  ),
-                  label: Text('After Hours Support', style: TextStyle(color: _textIconColor)),
+                  icon: Icon(Icons.nights_stay,
+                      size: 50.0, color: _textIconColor),
+                  label: Text('After Hours Support',
+                      style: TextStyle(color: _textIconColor)),
                   color: _boxColor,
                 ),
               ),
@@ -318,12 +303,10 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                     await signOutCurrentUser();
                     moveToLoginViewReplacement(context);
                   },
-                  icon: Icon(
-                      IconData(0xe3b3, fontFamily: 'MaterialIcons'),
-                      size: 50.0,
-                      color: _textIconColor
-                  ),
-                  label: Text('Logout', style: TextStyle(color: _textIconColor)),
+                  icon: Icon(IconData(0xe3b3, fontFamily: 'MaterialIcons'),
+                      size: 50.0, color: _textIconColor),
+                  label:
+                      Text('Logout', style: TextStyle(color: _textIconColor)),
                   color: _boxColor,
                 ),
               ),
