@@ -8,13 +8,15 @@ generateUserTiles(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
 }
 
 Widget _userListTile(BuildContext context, QueryDocumentSnapshot<Object?> doc) {
+  Color _boxColor = const Color(0xff173f5f);
+  Color _textIconColor = Colors.white;
   return Card(
       elevation: 0,
-      color: Colors.blue,
+      color: _boxColor,
       child: ListTile(
           title:
-              Text(doc['email'], style: const TextStyle(color: Colors.white)),
-          trailing: const Icon(Icons.edit_outlined, color: Colors.white),
+              Text(doc['email'], style: TextStyle(color: _textIconColor)),
+          trailing: Icon(Icons.edit_outlined, color: _textIconColor),
           onTap: () async {
             moveToEditAccountView(context, doc);
           }));

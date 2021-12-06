@@ -22,6 +22,9 @@ class _ManageUsersViewState extends State<ManageUsersView> {
     'Tutor': tutorStream(),
     'Admin': adminStream()
   };
+  Color _boxColor = const Color(0xff173f5f);
+  Color _borderColor = const Color(0xFFFFB300);
+  Color _textIconColor = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +61,8 @@ class _ManageUsersViewState extends State<ManageUsersView> {
                       child: const Text('Students'),
                       style: ElevatedButton.styleFrom(
                           primary: (_selectedRole == _studentRole)
-                              ? Colors.blue
+                              ? _boxColor
                               : Colors.grey,
-                          textStyle: const TextStyle(color: Colors.black),
                           elevation:
                               (_selectedRole == _studentRole) ? 2.0 : 0)),
                 ),
@@ -72,7 +74,7 @@ class _ManageUsersViewState extends State<ManageUsersView> {
                       child: const Text('Tutors'),
                       style: ElevatedButton.styleFrom(
                           primary: (_selectedRole == _tutorRole)
-                              ? Colors.blue
+                              ? _boxColor
                               : Colors.grey,
                           textStyle: const TextStyle(color: Colors.black),
                           elevation: (_selectedRole == _tutorRole) ? 2.0 : 0)),
@@ -85,7 +87,7 @@ class _ManageUsersViewState extends State<ManageUsersView> {
                       child: const Text('Admins'),
                       style: ElevatedButton.styleFrom(
                           primary: (_selectedRole == _adminRole)
-                              ? Colors.blue
+                              ? _boxColor
                               : Colors.grey,
                           textStyle: const TextStyle(color: Colors.black),
                           elevation: (_selectedRole == _adminRole) ? 2.0 : 0)),
