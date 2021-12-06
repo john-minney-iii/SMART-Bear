@@ -194,7 +194,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
               child: Container(
                 height: 100.0,
                 decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: const Color(0xff173f5f),
                     borderRadius: BorderRadius.circular(5.0)),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
