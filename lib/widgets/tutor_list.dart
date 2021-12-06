@@ -15,12 +15,14 @@ generateTutorTiles(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot,
 
 Widget _tutorListTile(BuildContext context, QueryDocumentSnapshot<Object?> doc,
     Question question) {
+  Color _boxColor = const Color(0xff173f5f);
+  Color _textIconColor = Colors.white;
   return Card(
       elevation: 0,
-      color: Colors.blue,
+      color: _boxColor,
       child: ListTile(
-        title: Text(doc['email'], style: const TextStyle(color: Colors.white)),
-        trailing: const Icon(Icons.arrow_right),
+        title: Text(doc['email'], style: TextStyle(color: _textIconColor)),
+        trailing: Icon(Icons.arrow_right, color: _textIconColor),
         onTap: () async {
           final _tutorAccount = UserAccount(
               role: doc['role'], email: doc['email'], id: doc['id']);
