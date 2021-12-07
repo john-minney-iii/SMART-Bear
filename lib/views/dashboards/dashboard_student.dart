@@ -124,7 +124,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text('Appointments',
+                                Text('Schedule an Appointment',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: _textIconColor)),
@@ -160,7 +160,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text('Tutor Availability',
+                                Text('After Hour Support',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: _textIconColor)),
@@ -197,7 +197,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text('Ask A Question',
+                                Text('Quick Tutor Help',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: _textIconColor)),
@@ -225,7 +225,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text('FAQ',
+                                Text("FAQ's",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: _textIconColor)),
@@ -263,33 +263,33 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                   color: _boxColor,
                 ),
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-                width: MediaQuery.of(context).size.width * 0.90,
-                height: MediaQuery.of(context).size.width * 0.15,
-                decoration: BoxDecoration(
-                  border: Border.all(color: _borderColor, width: _borderWidth),
-                ),
-                child: RaisedButton.icon(
-                  onPressed: () async {
-                    final url =
-                        'https://www.unco.edu/tutoring/pdf/night-time-drop-in-course-offerings.pdf';
-                    if (await canLaunch(url)) {
-                      await launch(
-                        url,
-                        forceSafariVC: false,
-                      );
-                    } else {
-                      throw 'Could not launch $url';
-                    }
-                  },
-                  icon: Icon(Icons.nights_stay,
-                      size: 50.0, color: _textIconColor),
-                  label: Text('After Hours Support',
-                      style: TextStyle(color: _textIconColor)),
-                  color: _boxColor,
-                ),
-              ),
+              // Container(
+              //   margin: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+              //   width: MediaQuery.of(context).size.width * 0.90,
+              //   height: MediaQuery.of(context).size.width * 0.15,
+              //   decoration: BoxDecoration(
+              //     border: Border.all(color: _borderColor, width: _borderWidth),
+              //   ),
+              //   child: RaisedButton.icon(
+              //     onPressed: () async {
+              //       final url =
+              //           'https://www.unco.edu/tutoring/pdf/night-time-drop-in-course-offerings.pdf';
+              //       if (await canLaunch(url)) {
+              //         await launch(
+              //           url,
+              //           forceSafariVC: false,
+              //         );
+              //       } else {
+              //         throw 'Could not launch $url';
+              //       }
+              //     },
+              //     icon: Icon(Icons.nights_stay,
+              //         size: 50.0, color: _textIconColor),
+              //     label: Text('After Hours Support',
+              //         style: TextStyle(color: _textIconColor)),
+              //     color: _boxColor,
+              //   ),
+              // ),
               Container(
                 margin: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                 width: MediaQuery.of(context).size.width * 0.90,
