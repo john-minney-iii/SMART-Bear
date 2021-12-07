@@ -124,7 +124,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text('Schedule an Appointment',
+                                Text('Schedule a Tutor Appointment',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: _textIconColor)),
@@ -160,7 +160,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text('After Hour Support',
+                                Text('Evening Drop-in Tutor Support',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: _textIconColor)),
