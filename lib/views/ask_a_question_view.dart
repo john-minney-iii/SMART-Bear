@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/firebase_api.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
@@ -7,6 +8,7 @@ import 'package:smart_bear_tutor/models/question_model.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/widgets/blue_call_to_action.dart';
 import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AskAQuestionView extends StatefulWidget {
   const AskAQuestionView({Key? key}) : super(key: key);
@@ -272,8 +274,21 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: const Text('Question Successfully Sent!'),
-      content: const Text(
-          'Your question will be assigned to a tutor as soon as possible. We encourage you to please schedule an appointment at your earliest convenience for further tutoring assistance! We are located in the lower level of Michener Library. Please access our website Tutorial Services - University of Northern Colorado (unco.edu) to schedule an appointment with our tutors!'),
+      content: RichText(
+        text: TextSpan(children: [
+          TextSpan(
+              text:
+                  'We encourage you to please schedule an appointment at your earliest convenience for further tutoring assistance! We are located in the lower level of Michener Library. Please access our website ',
+              style: TextStyle(color: Colors.black)),
+          TextSpan(
+              text:
+                  'Tutorial Services - University of Northern Colorado (unco.edu)',
+              style: TextStyle(
+                  color: Colors.blue, decoration: TextDecoration.underline),
+              recognizer: new TapGestureRecognizer()
+                ..onTap = () => _moveToTutorialServicesSite())
+        ]),
+      ),
       actions: [
         thanksButton,
       ],
@@ -286,6 +301,18 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
         return alert;
       },
     );
+  }
+
+  void _moveToTutorialServicesSite() async {
+    final url = 'https://www.unco.edu/tutoring/';
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   void _submitNewQuestion() async {
