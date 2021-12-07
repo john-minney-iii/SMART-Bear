@@ -125,6 +125,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text('Schedule an Appointment',
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: _textIconColor)),
