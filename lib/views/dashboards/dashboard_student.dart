@@ -303,7 +303,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                     await signOutCurrentUser();
                     moveToLoginViewReplacement(context);
                   },
-                  icon: Icon(IconData(0xe3b3, fontFamily: 'MaterialIcons'),
+                  icon: Icon(const IconData(0xe3b3, fontFamily: 'MaterialIcons'),
                       size: 50.0, color: _textIconColor),
                   label:
                       Text('Logout', style: TextStyle(color: _textIconColor)),
