@@ -65,6 +65,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
   }
 
   void _dynamicClassCodeDropDown(String subject) {
+    _offeredCodes.removeRange(0, _offeredCodes.length);
     final _subjectCodes = _offeredClassesMap[subject] as List<int>;
     _subjectCodes.add(0);
     _subjectCodes.sort();
