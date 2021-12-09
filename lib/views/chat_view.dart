@@ -159,6 +159,7 @@ class _ChatViewState extends State<ChatView> {
           authorId: _authId!,
           chatRoomId: _chatRoom.id,
           message: message,
+          attachedImagePath: '',
           timestamp: DateTime.now());
       createMessage(_message);
     } else {
