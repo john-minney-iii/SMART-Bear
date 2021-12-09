@@ -36,6 +36,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
   late int _selectedCode = 0; // ie. 101, 350, ect
   final _picker = ImagePicker();
   IO.File? _imageFile = null;
+  String _filePath = '';
 
   @override
   Widget build(BuildContext context) {
@@ -353,7 +354,8 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
           classCode: _class,
           questionDate: DateTime.now(),
           subject: _subjectController.text,
-          body: _questionController.text);
+          body: _questionController.text,
+          imagePath: _filePath);
       await submitQuestion(_newQuestion);
       _showSuccessfulAlertDialog();
     }
@@ -379,6 +381,9 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
       final firebaseStorageRef =
           FirebaseStorage.instance.ref().child('questionUploads/$fileName');
       UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile!);
+      setState(() {
+        _filePath = 'questionUploads/${Path.basename(_imageFile!.path)}';
+      });
     }
     return;
   }
