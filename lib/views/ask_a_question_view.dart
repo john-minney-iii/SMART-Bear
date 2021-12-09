@@ -267,7 +267,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
       child: const Text("OK"),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop('dialog');
-        moveToStudentDashboardReplacement(context);
+        moveToUserDashboardReplacement(context);
       },
     );
 
