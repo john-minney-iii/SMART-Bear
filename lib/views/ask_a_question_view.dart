@@ -1,6 +1,10 @@
+import 'dart:core';
+import 'dart:io' as IO;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:smart_bear_tutor/api/firebase_api.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/models/offered_class.dart';
@@ -9,6 +13,7 @@ import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/widgets/blue_call_to_action.dart';
 import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:path/path.dart' as Path;
 
 class AskAQuestionView extends StatefulWidget {
   const AskAQuestionView({Key? key}) : super(key: key);
@@ -29,6 +34,8 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
   // Chosen Data for Class Code
   late String _selectedSubject = ''; // ie. MATH, CS, BACS, ect
   late int _selectedCode = 0; // ie. 101, 350, ect
+  final _picker = ImagePicker();
+  late var _imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -208,8 +215,10 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                         iconSize: 45.0,
                         color: Colors.white,
                         tooltip: 'Use Camera',
-                        onPressed: () {
+                        onPressed: () async {
                           // TODO: allow user to take a picture
+                          await _pickImageCamera();
+                          await _uploadImageToFirebase(context);
                         },
                       ),
                       IconButton(
@@ -217,8 +226,10 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                         iconSize: 45.0,
                         color: Colors.white,
                         tooltip: 'Choose From Gallery',
-                        onPressed: () {
+                        onPressed: () async {
                           // TODO: allow user to choose a picture from their gallery
+                          await _pickImageGallery();
+                          await _uploadImageToFirebase(context);
                         },
                       ),
                     ]),
@@ -333,5 +344,26 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
       await submitQuestion(_newQuestion);
       _showSuccessfulAlertDialog();
     }
+  }
+
+  Future<void> _pickImageCamera() async {
+    final _pickedImage = await _picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      _imageFile = IO.File(_pickedImage!.path);
+    });
+  }
+
+  Future<void> _pickImageGallery() async {
+    final _pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _imageFile = IO.File(_pickedImage!.path);
+    });
+  }
+
+  Future _uploadImageToFirebase(BuildContext context) async {
+    String fileName = Path.basename(_imageFile.path);
+    final firebaseStorageRef =
+        FirebaseStorage.instance.ref().child('questionUploads/$fileName');
+    UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
   }
 }
