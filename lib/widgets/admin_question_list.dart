@@ -37,7 +37,8 @@ Widget _questionListTile(
               classCode: doc['classCode'],
               questionDate: (doc['questionDate'] as Timestamp).toDate(),
               subject: doc['subject'],
-              body: doc['body']);
+              body: doc['body'],
+              imagePath: doc['imagePath']);
           final _authorEmail = await getUserEmailById(doc['authorId']);
           moveToQuestionView(context, _tempQuestion, _authorEmail);
         },
