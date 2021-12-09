@@ -199,6 +199,8 @@ class _ChatViewState extends State<ChatView> {
     Widget okButton = TextButton(
       child: const Text("OK"),
       onPressed: () async {
+        _sendMessage(
+            'Thank you for using the SMART Bear Tutor! This chatroom has been closed.');
         Navigator.of(context, rootNavigator: true).pop('dialog');
         await closeChatRoom(_chatRoom);
         setState(() {
