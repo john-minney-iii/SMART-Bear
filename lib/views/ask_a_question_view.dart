@@ -35,7 +35,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
   late String _selectedSubject = ''; // ie. MATH, CS, BACS, ect
   late int _selectedCode = 0; // ie. 101, 350, ect
   final _picker = ImagePicker();
-  late var _imageFile;
+  IO.File? _imageFile = null;
 
   @override
   Widget build(BuildContext context) {
@@ -194,6 +194,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                 ],
               ),
             ),
+            _showAttachedImage(),
             Padding(
                 padding: const EdgeInsets.only(bottom: 10.0, left: 15.0),
                 child: Container(
@@ -218,7 +219,6 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                         onPressed: () async {
                           // TODO: allow user to take a picture
                           await _pickImageCamera();
-                          await _uploadImageToFirebase(context);
                         },
                       ),
                       IconButton(
@@ -229,7 +229,6 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                         onPressed: () async {
                           // TODO: allow user to choose a picture from their gallery
                           await _pickImageGallery();
-                          await _uploadImageToFirebase(context);
                         },
                       ),
                     ]),
@@ -243,6 +242,19 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
         ),
       ),
     );
+  }
+
+  Widget _showAttachedImage() {
+    if (_imageFile != null) {
+      return Padding(
+          padding: const EdgeInsets.only(top: 10.0, bottom: 5.0),
+          child: Image.file(
+            _imageFile!,
+            width: 150,
+            height: 150,
+          ));
+    }
+    return Container();
   }
 
   void _showAlreadyAskedAlertDialog() {
@@ -329,6 +341,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
 
   void _submitNewQuestion() async {
     if (_formKey.currentState!.validate()) {
+      await _uploadImageToFirebase(context);
       final _class = _selectedSubject + _selectedCode.toString();
       final _userId = currentUserUid();
       if (await checkUserQuestions(_userId!, _class)) {
@@ -361,9 +374,12 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
   }
 
   Future _uploadImageToFirebase(BuildContext context) async {
-    String fileName = Path.basename(_imageFile.path);
-    final firebaseStorageRef =
-        FirebaseStorage.instance.ref().child('questionUploads/$fileName');
-    UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+    if (_imageFile != null) {
+      String fileName = Path.basename(_imageFile!.path);
+      final firebaseStorageRef =
+          FirebaseStorage.instance.ref().child('questionUploads/$fileName');
+      UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile!);
+    }
+    return;
   }
 }
