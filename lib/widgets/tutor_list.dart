@@ -27,7 +27,35 @@ Widget _tutorListTile(BuildContext context, QueryDocumentSnapshot<Object?> doc,
           final _tutorAccount = UserAccount(
               role: doc['role'], email: doc['email'], id: doc['id']);
           await assignQuestionToTutor(question, _tutorAccount);
-          moveToAdminDashboardReplacement(context);
+          _showQuestionAssignAlertDialog(context, doc['email']);
         },
       ));
+}
+
+void _showQuestionAssignAlertDialog(BuildContext context, String name) {
+  // set up the button
+  Widget okButton = TextButton(
+    child: const Text("OK"),
+    onPressed: () {
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      moveToAdminDashboardReplacement(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Text("Question Assigned"),
+    content: Text("You assigned the question to tutor $name"),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
