@@ -54,7 +54,10 @@ class _FAQListStatefulWidgetState extends State<FAQListStatefulWidget> {
 
   Widget _buildPanel(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('FAQ').orderBy('QuestionNumber').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('FAQ')
+            .orderBy('QuestionNumber')
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) return const Text('Loading FAQ...');
           return ExpansionPanelList.radio(
