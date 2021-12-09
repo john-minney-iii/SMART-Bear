@@ -59,7 +59,13 @@ Future<void> assignQuestionToTutor(Question question, UserAccount user) async {
       .get();
   final _id = _data.docs.first.id;
   ChatRoom _chatRoom = ChatRoom(
-      id: question.authorId + '_' + user.id,
+      id: question.authorId +
+          '_' +
+          user.id +
+          '_' +
+          question.classCode +
+          ' - ' +
+          question.subject,
       userIds: [question.authorId, user.id],
       isOpen: true,
       subject: question.classCode + ' - ' + question.subject);
