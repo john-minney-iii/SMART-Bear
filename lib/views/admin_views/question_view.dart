@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/models/question_model.dart';
@@ -5,6 +6,7 @@ import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/widgets/blue_call_to_action.dart';
 import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
 import 'package:smart_bear_tutor/widgets/red_call_to_action.dart';
+import 'package:path/path.dart' as Path;
 
 class QuestionView extends StatefulWidget {
   const QuestionView(
@@ -87,6 +89,21 @@ class _QuestionViewState extends State<QuestionView> {
               ),
               Align(
                   alignment: Alignment.centerLeft, child: Text(_question.body)),
+              const Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Image:',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                child: _showQuestionImage(),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Center(
@@ -102,6 +119,26 @@ class _QuestionViewState extends State<QuestionView> {
             ],
           ),
         ));
+  }
+
+  Widget _showQuestionImage() {
+    return FutureBuilder(
+      future: _getDownloadLink(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Image.network(snapshot.data.toString(),
+              width: 150, height: 150);
+        }
+        return Center(child: CircularProgressIndicator());
+      },
+    );
+  }
+
+  Future<String> _getDownloadLink() async {
+    return await FirebaseStorage.instance
+        .ref()
+        .child(_question.imagePath)
+        .getDownloadURL();
   }
 
   void _assignOnPressed() {
