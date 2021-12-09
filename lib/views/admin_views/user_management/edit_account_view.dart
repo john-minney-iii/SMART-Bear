@@ -87,7 +87,11 @@ class _EditAccountViewState extends State<EditAccountView> {
                                 activeColor: Colors.blue)),
                       ])),
             ),
-            Center(child: blueCallToAction('Update', _updateUser)),
+            Padding(padding: const EdgeInsets.only(bottom: 25.0),
+            child: Center(child: blueCallToAction('Update', _updateUser)),
+            ),
+            Center(child: blueCallToAction('Delete User', _deleteUser))
+
           ],
         ));
   }
@@ -97,5 +101,8 @@ class _EditAccountViewState extends State<EditAccountView> {
     if (_response) {
       moveToManageUsersView(context);
     }
+  }
+  void _deleteUser() async {
+    final _response = await FirebaseFirestore.instance.collection("User").doc(_user['id']).delete();
   }
 }
