@@ -78,6 +78,7 @@ Future<void> assignQuestionToTutor(Question question, UserAccount user) async {
       authorId: question.authorId,
       chatRoomId: _chatRoom.id,
       message: question.body,
+      attachedImagePath: question.imagePath,
       timestamp: DateTime.now());
   createMessage(_message);
 }
@@ -125,14 +126,16 @@ Future<List<Message>?> getMessages(ChatRoom chatRoom) async {
             authorId: '',
             chatRoomId: '',
             message: '',
-            timestamp: DateTime.now()),
+            timestamp: DateTime.now(),
+            attachedImagePath: ''),
         growable: true);
     for (var message in _data) {
       _messageList.add(Message(
           authorId: message['AuthorId'],
           chatRoomId: message['ChatRoomId'],
           message: message['Message'],
-          timestamp: message['SentTimeStamp']));
+          timestamp: message['SentTimeStamp'],
+          attachedImagePath: message['AttachedImagePath']));
     }
     return _messageList;
   }

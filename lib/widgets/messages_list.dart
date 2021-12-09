@@ -11,5 +11,14 @@ generateMessageTiles(AsyncSnapshot<QuerySnapshot> snapshot) {
 Widget _messageListTile(QueryDocumentSnapshot<Object?> doc) {
   final _id = currentUserUid();
   bool _isCurrentUser = (doc['AuthorId'] == _id);
-  return ChatBubble(text: doc['Message'], isCurrentUser: _isCurrentUser);
+  String _attachmentPath = '';
+  try {
+    _attachmentPath = doc['AttachedImagePath'];
+  } catch (e) {
+    _attachmentPath = '';
+  }
+  return ChatBubble(
+      text: doc['Message'],
+      isCurrentUser: _isCurrentUser,
+      attachmentPath: _attachmentPath);
 }

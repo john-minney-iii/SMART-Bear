@@ -6,7 +6,6 @@ import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/widgets/blue_call_to_action.dart';
 import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
 import 'package:smart_bear_tutor/widgets/red_call_to_action.dart';
-import 'package:path/path.dart' as Path;
 
 class QuestionView extends StatefulWidget {
   const QuestionView(
