@@ -125,8 +125,12 @@ class _QuestionViewState extends State<QuestionView> {
       future: _getDownloadLink(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return Image.network(snapshot.data.toString(),
-              width: 150, height: 150);
+          if (snapshot.hasData) {
+            return Image.network(snapshot.data.toString(),
+                width: 150, height: 150);
+          } else {
+            return const Text('No Attached Image');
+          }
         }
         return Center(child: CircularProgressIndicator());
       },
