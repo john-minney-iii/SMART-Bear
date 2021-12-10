@@ -125,7 +125,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 15.0),
-                          child: SizedBox(
+                          child: Container(
                             width: 170.0,
                             child: DropdownButtonFormField<int>(
                                 value: _selectedCode,
