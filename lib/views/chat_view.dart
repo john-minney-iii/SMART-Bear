@@ -201,7 +201,7 @@ class _ChatViewState extends State<ChatView> {
       child: const Text("OK"),
       onPressed: () async {
         _sendMessage(
-            'Thank you for using the SMART Bear Tutor! This chatroom has been closed.');
+            'Thank you for using the SMART Bear Tutor! This chatroom has been closed. Please schedule a tutoring appointment for more help.');
         Navigator.of(context, rootNavigator: true).pop('dialog');
         await closeChatRoom(_chatRoom);
         setState(() {
