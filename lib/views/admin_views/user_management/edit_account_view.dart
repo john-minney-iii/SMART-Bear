@@ -5,7 +5,6 @@ import 'package:smart_bear_tutor/api/firebase_api.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/widgets/blue_call_to_action.dart';
 import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
-import 'package:smart_bear_tutor/widgets/red_call_to_action.dart';
 
 class EditAccountView extends StatefulWidget {
   const EditAccountView({Key? key, required this.user}) : super(key: key);
@@ -92,7 +91,21 @@ class _EditAccountViewState extends State<EditAccountView> {
               padding: const EdgeInsets.only(bottom: 25.0),
               child: Center(child: blueCallToAction('Update', _updateUser)),
             ),
-            Center(child: redCallToAction('Delete User', _deleteUser))
+            Container(
+                height: 50.0,
+                width: 250.0,
+                decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: TextButton(
+                  child: Text(
+                    'Delete User',
+                    style: const TextStyle(color: Colors.white, fontSize: 25.0),
+                  ),
+                  onPressed: () {
+                    _showDeleteUserAlertDialog(context);
+                  },
+                ))
           ],
         ));
   }
@@ -109,5 +122,43 @@ class _EditAccountViewState extends State<EditAccountView> {
         .collection("User")
         .doc(_user['id'])
         .delete();
+  }
+
+  void _showDeleteUserAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        _deleteUser();
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+        moveToManageUsersView(context);
+      },
+    );
+
+    Widget cancelButton = TextButton(
+      child: const Text('Cancel'),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("You are about to delete a user."),
+      content: Text(
+          "Are you sure you want to delete this user. This can't be undone."),
+      actions: [
+        cancelButton,
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
