@@ -23,8 +23,6 @@ class _ManageUsersViewState extends State<ManageUsersView> {
     'Admin': adminStream()
   };
   Color _boxColor = const Color(0xff173f5f);
-  Color _borderColor = const Color(0xFFFFB300);
-  Color _textIconColor = Colors.white;
 
   @override
   Widget build(BuildContext context) {

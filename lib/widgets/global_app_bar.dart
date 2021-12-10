@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_bear_tutor/api/user_auth.dart';
-import 'package:smart_bear_tutor/routes/routes.dart';
 
 AppBar globalAppBar(
     BuildContext context, String title, bool applyLeading, bool includeLogout) {

@@ -108,7 +108,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                           border: Border.all(
                               color: _borderColor, width: _borderWidth),
                         ),
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           onPressed: () async {
                             final url =
                                 'https://www.unco.edu/tutoring/#tutortrac';
@@ -135,7 +135,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                                   color: _textIconColor,
                                 ),
                               ]),
-                          color: _boxColor,
+                          style: ElevatedButton.styleFrom(primary: _boxColor),
                         ),
                       ),
                       Container(
@@ -145,7 +145,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                           border: Border.all(
                               color: _borderColor, width: _borderWidth),
                         ),
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           onPressed: () async {
                             final url =
                                 'https://www.unco.edu/tutoring/pdf/night-time-drop-in-course-offerings.pdf';
@@ -168,7 +168,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                                 Icon(Icons.emoji_people,
                                     size: 50.0, color: _textIconColor),
                               ]),
-                          color: _boxColor,
+                          style: ElevatedButton.styleFrom(primary: _boxColor),
                         ),
                       ),
                     ]),
@@ -187,7 +187,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                           border: Border.all(
                               color: _borderColor, width: _borderWidth),
                         ),
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -205,7 +205,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                                 Icon(Icons.help,
                                     size: 50.0, color: _textIconColor),
                               ]),
-                          color: _boxColor,
+                          style: ElevatedButton.styleFrom(primary: _boxColor),
                         ),
                       ),
                       Container(
@@ -215,7 +215,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                           border: Border.all(
                               color: _borderColor, width: _borderWidth),
                         ),
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -233,7 +233,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                                 Icon(Icons.mail,
                                     size: 50.0, color: _textIconColor),
                               ]),
-                          color: _boxColor,
+                          style: ElevatedButton.styleFrom(primary: _boxColor),
                         ),
                       ),
                     ]),
@@ -253,7 +253,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                 decoration: BoxDecoration(
                   border: Border.all(color: _borderColor, width: _borderWidth),
                 ),
-                child: RaisedButton.icon(
+                child: ElevatedButton.icon(
                   onPressed: () async {
                     moveToChatRoomListView(context);
                   },
@@ -261,7 +261,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                       size: 50.0, color: _textIconColor),
                   label: Text('My Conversations',
                       style: TextStyle(color: _textIconColor)),
-                  color: _boxColor,
+                  style: ElevatedButton.styleFrom(primary: _boxColor),
                 ),
               ),
               // Container(
@@ -298,7 +298,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                 decoration: BoxDecoration(
                   border: Border.all(color: _borderColor, width: _borderWidth),
                 ),
-                child: RaisedButton.icon(
+                child: ElevatedButton.icon(
                   onPressed: () async {
                     await signOutCurrentUser();
                     moveToLoginViewReplacement(context);
@@ -309,7 +309,7 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
                       color: _textIconColor),
                   label:
                       Text('Logout', style: TextStyle(color: _textIconColor)),
-                  color: _boxColor,
+                  style: ElevatedButton.styleFrom(primary: _boxColor),
                 ),
               ),
             ]),

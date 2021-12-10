@@ -83,7 +83,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                       border:
                           Border.all(color: _borderColor, width: _borderWidth),
                     ),
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         _manageQuestionsOnPressed();
                       },
@@ -96,7 +96,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                                     color: _textIconColor)),
                             Icon(Icons.help, size: 50.0, color: _textIconColor),
                           ]),
-                      color: _boxColor,
+                      style: ElevatedButton.styleFrom(primary: _boxColor),
                     ),
                   ),
                   Container(
@@ -106,7 +106,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                       border:
                           Border.all(color: _borderColor, width: _borderWidth),
                     ),
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -123,7 +123,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                                     color: _textIconColor)),
                             Icon(Icons.mail, size: 50.0, color: _textIconColor),
                           ]),
-                      color: _boxColor,
+                      style: ElevatedButton.styleFrom(primary: _boxColor),
                     ),
                   ),
                 ]),
@@ -142,7 +142,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                       border:
                           Border.all(color: _borderColor, width: _borderWidth),
                     ),
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         _manageUsersOnPressed();
                       },
@@ -156,7 +156,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                             Icon(Icons.supervised_user_circle_sharp,
                                 size: 50.0, color: _textIconColor),
                           ]),
-                      color: _boxColor,
+                      style: ElevatedButton.styleFrom(primary: _boxColor),
                     ),
                   ),
                 ]),
@@ -176,7 +176,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
             decoration: BoxDecoration(
               border: Border.all(color: _borderColor, width: _borderWidth),
             ),
-            child: RaisedButton.icon(
+            child: ElevatedButton.icon(
               onPressed: () async {
                 final url =
                     'https://console.firebase.google.com/project/smart-bear-f7c5d/notification/compose';
@@ -193,7 +193,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
                   size: 50.0, color: _textIconColor),
               label: Text('Send Notifications',
                   style: TextStyle(color: _textIconColor)),
-              color: _boxColor,
+              style: ElevatedButton.styleFrom(primary: _boxColor),
             ),
           ),
           Container(
@@ -203,7 +203,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
             decoration: BoxDecoration(
               border: Border.all(color: _borderColor, width: _borderWidth),
             ),
-            child: RaisedButton.icon(
+            child: ElevatedButton.icon(
               onPressed: () async {
                 await signOutCurrentUser();
                 moveToLoginViewReplacement(context);
@@ -211,7 +211,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
               icon: Icon(const IconData(0xe3b3, fontFamily: 'MaterialIcons'),
                   size: 50.0, color: _textIconColor),
               label: Text('Logout', style: TextStyle(color: _textIconColor)),
-              color: _boxColor,
+              style: ElevatedButton.styleFrom(primary: _boxColor),
             ),
           ),
         ]),
@@ -240,23 +240,7 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
     moveToManageQuestionsView(context);
   }
 
-  void _manageTutorAvailability() {
-    // TODO: manage tutor availability
-  }
-
   void _manageUsersOnPressed() {
     moveToManageUsersView(context);
-  }
-
-  void _manageFaqOnPressed() {
-    moveToAdminFAQView(context);
-  }
-
-  void _sendNotificationsOnPressed() {
-    // TODO: send notifications
-  }
-
-  void _settingsOnPressed() {
-    // TODO: settings view
   }
 }

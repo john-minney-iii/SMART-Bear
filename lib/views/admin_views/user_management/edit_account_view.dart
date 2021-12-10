@@ -105,7 +105,7 @@ class _EditAccountViewState extends State<EditAccountView> {
   }
 
   void _deleteUser() async {
-    final _response = await FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("User")
         .doc(_user['id'])
         .delete();

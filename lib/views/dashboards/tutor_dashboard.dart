@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../ask_a_question_view.dart';
 import '../student_faq_view.dart';
@@ -84,7 +83,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
                       border:
                           Border.all(color: _borderColor, width: _borderWidth),
                     ),
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -101,7 +100,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
                                     color: _textIconColor)),
                             Icon(Icons.help, size: 50.0, color: _textIconColor),
                           ]),
-                      color: _boxColor,
+                      style: ElevatedButton.styleFrom(primary: _boxColor),
                     ),
                   ),
                   Container(
@@ -111,7 +110,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
                       border:
                           Border.all(color: _borderColor, width: _borderWidth),
                     ),
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -128,7 +127,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
                                     color: _textIconColor)),
                             Icon(Icons.mail, size: 50.0, color: _textIconColor),
                           ]),
-                      color: _boxColor,
+                      style: ElevatedButton.styleFrom(primary: _boxColor),
                     ),
                   ),
                 ]),
@@ -148,7 +147,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
             decoration: BoxDecoration(
               border: Border.all(color: _borderColor, width: _borderWidth),
             ),
-            child: RaisedButton.icon(
+            child: ElevatedButton.icon(
               onPressed: () async {
                 moveToChatRoomListView(context);
               },
@@ -156,7 +155,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
                   size: 50.0, color: _textIconColor),
               label: Text('My Conversations',
                   style: TextStyle(color: _textIconColor)),
-              color: _boxColor,
+              style: ElevatedButton.styleFrom(primary: _boxColor),
             ),
           ),
           Container(
@@ -166,7 +165,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
             decoration: BoxDecoration(
               border: Border.all(color: _borderColor, width: _borderWidth),
             ),
-            child: RaisedButton.icon(
+            child: ElevatedButton.icon(
               onPressed: () async {
                 await signOutCurrentUser();
                 moveToLoginViewReplacement(context);
@@ -174,7 +173,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
               icon: Icon(const IconData(0xe3b3, fontFamily: 'MaterialIcons'),
                   size: 50.0, color: _textIconColor),
               label: Text('Logout', style: TextStyle(color: _textIconColor)),
-              color: _boxColor,
+              style: ElevatedButton.styleFrom(primary: _boxColor),
             ),
           ),
         ]),

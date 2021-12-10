@@ -380,7 +380,7 @@ class _AskAQuestionViewState extends State<AskAQuestionView> {
       String fileName = Path.basename(_imageFile!.path);
       final firebaseStorageRef =
           FirebaseStorage.instance.ref().child('questionUploads/$fileName');
-      UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile!);
+      await firebaseStorageRef.putFile(_imageFile!);
       setState(() {
         _filePath = 'questionUploads/${Path.basename(_imageFile!.path)}';
       });
