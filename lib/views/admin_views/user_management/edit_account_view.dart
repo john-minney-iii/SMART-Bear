@@ -5,6 +5,7 @@ import 'package:smart_bear_tutor/api/firebase_api.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
 import 'package:smart_bear_tutor/widgets/blue_call_to_action.dart';
 import 'package:smart_bear_tutor/widgets/global_app_bar.dart';
+import 'package:smart_bear_tutor/widgets/red_call_to_action.dart';
 
 class EditAccountView extends StatefulWidget {
   const EditAccountView({Key? key, required this.user}) : super(key: key);
@@ -87,11 +88,11 @@ class _EditAccountViewState extends State<EditAccountView> {
                                 activeColor: Colors.blue)),
                       ])),
             ),
-            Padding(padding: const EdgeInsets.only(bottom: 25.0),
-            child: Center(child: blueCallToAction('Update', _updateUser)),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 25.0),
+              child: Center(child: blueCallToAction('Update', _updateUser)),
             ),
-            Center(child: blueCallToAction('Delete User', _deleteUser))
-
+            Center(child: redCallToAction('Delete User', _deleteUser))
           ],
         ));
   }
@@ -102,7 +103,11 @@ class _EditAccountViewState extends State<EditAccountView> {
       moveToManageUsersView(context);
     }
   }
+
   void _deleteUser() async {
-    final _response = await FirebaseFirestore.instance.collection("User").doc(_user['id']).delete();
+    final _response = await FirebaseFirestore.instance
+        .collection("User")
+        .doc(_user['id'])
+        .delete();
   }
 }
