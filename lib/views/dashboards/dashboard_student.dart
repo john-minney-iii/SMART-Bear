@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
+import 'package:smart_bear_tutor/util/push_notifications.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:smart_bear_tutor/views/student_faq_view.dart';
 import 'package:smart_bear_tutor/views/ask_a_question_view.dart';
@@ -17,6 +18,23 @@ class _DashboardStudentPageState extends State<DashboardStudentPage> {
   Color _borderColor = const Color(0xFFFFB300);
   Color _textIconColor = Colors.white;
   final _borderWidth = 3.0;
+  String notificationTitle = 'No Title';
+  String notificationBody = 'No Body';
+  String notificationData = 'No Data';
+
+  @override
+  void initState() {
+    final firebaseMessaging = FCM();
+    firebaseMessaging.setNotifications();
+    firebaseMessaging.streamCtlr.stream.listen(_changeData);
+    firebaseMessaging.bodyCtlr.stream.listen(_changeBody);
+    firebaseMessaging.titleCtlr.stream.listen(_changeTitle);
+    super.initState();
+  }
+
+  _changeData(String msg) => setState(() => notificationData = msg);
+  _changeBody(String msg) => setState(() => notificationBody = msg);
+  _changeTitle(String msg) => setState(() => notificationTitle = msg);
 
   @override
   Widget build(BuildContext context) {

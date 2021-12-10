@@ -147,7 +147,10 @@ Future<void> createMessage(Message message) async {
 }
 
 Stream<QuerySnapshot<Object?>> unAnsweredQuestionsStream() =>
-    _questionCollectionRef.where('answered', isEqualTo: false).orderBy('questionDate', descending: true).snapshots();
+    _questionCollectionRef
+        .where('answered', isEqualTo: false)
+        .orderBy('questionDate', descending: true)
+        .snapshots();
 
 Stream<QuerySnapshot<Object?>> userStream() => _userCollectionRef.snapshots();
 
