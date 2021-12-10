@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_bear_tutor/api/user_auth.dart';
 import 'package:smart_bear_tutor/routes/routes.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../student_faq_view.dart';
 
@@ -168,6 +169,33 @@ class _AdminDashboardViewState extends State<AdminDashboardView> {
           ),
         ]),
         Column(children: <Widget>[
+          Container(
+            margin: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+            width: MediaQuery.of(context).size.width * 0.90,
+            height: MediaQuery.of(context).size.width * 0.15,
+            decoration: BoxDecoration(
+              border: Border.all(color: _borderColor, width: _borderWidth),
+            ),
+            child: RaisedButton.icon(
+              onPressed: () async {
+                final url =
+                    'https://console.firebase.google.com/project/smart-bear-f7c5d/notification/compose';
+                if (await canLaunch(url)) {
+                  await launch(
+                    url,
+                    forceSafariVC: false,
+                  );
+                } else {
+                  throw 'Could not launch $url'; // ToDo:Pull error message popup in app instead of console.
+                }
+              },
+              icon: Icon(Icons.notifications_on_outlined,
+                  size: 50.0, color: _textIconColor),
+              label: Text('Send Notifications',
+                  style: TextStyle(color: _textIconColor)),
+              color: _boxColor,
+            ),
+          ),
           Container(
             margin: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
             width: MediaQuery.of(context).size.width * 0.90,
