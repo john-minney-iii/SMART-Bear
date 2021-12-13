@@ -201,7 +201,7 @@ class _ChatViewState extends State<ChatView> {
       child: const Text("OK"),
       onPressed: () async {
         _sendMessage(
-            'Thank you for using the SMART Bear Tutor! This chatroom has been closed. Please schedule a tutoring appointment for more help.');
+            'Thank you for using Tutorial Services-Learning Assistance Center Smart Bear App to assist you with your course/subject query. We encourage you to please schedule an appointment at your earliest convenience for further tutoring assistance! We are located in the lower level of Michener Library.  Please access our website Tutorial Services-Learning Assistance Center - University of Northern Colorado (unco.edu) to schedule an appointment with our tutors');
         Navigator.of(context, rootNavigator: true).pop('dialog');
         await closeChatRoom(_chatRoom);
         setState(() {
