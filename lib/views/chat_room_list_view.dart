@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,16 +19,37 @@ class _ChatRoomListViewState extends State<ChatRoomListView> {
   Widget build(BuildContext context) {
     final _id = currentUserUid();
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: globalAppBar(context, 'Chat Rooms', true, true),
-        body: StreamBuilder(
-          stream: chatRoomStream(_id!),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            return ListView(children: generateChatRoomTiles(context, snapshot));
-          },
-        ));
+
+      backgroundColor: Colors.white,
+      appBar: globalAppBar(context, 'Chat Rooms', true, true),
+
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: 450,
+              height: 50,
+              child: Text('A tutor will answer your question as soon as possible.',
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Container(
+              width: 450,
+              height: 600,
+              child:
+              StreamBuilder(
+                stream: chatRoomStream(_id!),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return ListView(children: generateChatRoomTiles(context, snapshot));
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
